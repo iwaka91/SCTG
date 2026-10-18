@@ -43,7 +43,7 @@ Instruksi kerja untuk AI pembangun course:
 
 Changelog lengkap ada di **berkas pendamping** *SCTG_Changelog_dan_Ringkasan.md* (tidak wajib dimuat untuk membangun course).
 
-1. **Footer Baku & Tentang** (B26 baru; A1, A5, Bagian 4 butir 10, Bagian 6 butir 9, QA, Glosarium): setiap course memiliki footer berpola "[judul course] ©[tahun pembuatan] | totogutomo.com"; di bawahnya baris **Tentang** (nama pembuat, lalu "Guru SMA Negeri 3 Maliku") dengan jenis dan ukuran huruf sama dengan footer. Tampil di **dua tempat**: Cover dan Panel Guru. Tahun = **tahun pembuatan** course, tidak berubah saat update.
+1. **Footer Baku & Tentang** (B26 baru; A1, A5, Bagian 4 butir 10, Bagian 6 butir 9, QA, Glosarium): setiap course memiliki footer berpola "[judul course] ©[tahun pembuatan] | totogutomo.com"; di bawah footer terdapat **tombol ⓘ Tentang** (bukan identitas pengembang yang selalu tampil). Tombol kedua berada di **Panel Guru**. Kedua tombol membuka **satu modal overlay Tentang** yang sama, berisi identitas dan informasi course; modal tidak mengganggu progres belajar. Tahun = **tahun pembuatan** course, tidak berubah saat update.
 
 Perubahan V.4.3 (10 Langkah Belajar, Menu Langkah ☰, Kunci Senyap, game satu kolom tiga pita, game satu layar di Mode Genggam) tetap berlaku.
 
@@ -182,7 +182,7 @@ Halaman pertama bersih, menakjubkan, seperti halaman masuk game. Tidak menampilk
 - **Sekolah** — default **"SMA Negeri 3 Maliku"**, tetap editable.
 - Progres lama ditawarkan lewat tombol eksplisit **"Lanjutkan Progres"**, tidak mengisi kolom diam-diam. Autofill login hanya saat EZ.
 - Tautan **"🔐 Akses Guru"** di bawah form login (kode diterapkan setelah murid masuk).
-- **Footer baku**, baris **Tentang** tepat di bawahnya, dan **label versi** kecil di bagian bawah Cover (B26; Bagian 6).
+- **Footer baku**, tombol **ⓘ Tentang** tepat di bawahnya (membuka modal overlay B26), dan **label versi** kecil di bagian bawah Cover (B26; Bagian 6).
 
 ## A2. Feedback Login
 
@@ -236,7 +236,7 @@ Susunan berikut **dipatok sama** di setiap course LIT/NUM/SEJ/BANG. Tidak boleh 
 4. **Mode Presentasi** (hanya tampil bila Fasil/EZ aktif; lihat A10d).
 5. **Cek Kode Sertifikat** (hanya tampil bila Fasil/EZ aktif; lihat B18).
 6. Tombol **🗑 Reset Identitas (Reset Total)** dengan konfirmasi (hanya saat sudah di dalam aplikasi).
-7. **Tentang** (B26): nama pembuat, lalu "Guru SMA Negeri 3 Maliku" di bawahnya.
+7. **Tombol ⓘ Tentang** (B26): membuka modal overlay informasi course yang sama dengan tombol Tentang pada Cover; bukan menampilkan identitas pengembang secara langsung.
 8. **Label versi** kecil di bagian bawah modal.
 
 **Lokasi kontrol lain (baku):**
@@ -659,10 +659,11 @@ Identitas pembuat tampil seragam di setiap course, sama seperti Header Baku (A5)
 
 1. **Pola footer:** `[judul course] ©[tahun pembuatan] | totogutomo.com`, contoh: "Bungkus Sakti ©2026 | totogutomo.com". Judul course sama dengan judul Perjalanan Belajar di Cover.
 2. **Tahun = tahun pembuatan** course (tahun saat course pertama dibangun). Ditulis tetap di data course; tidak memakai tahun berjalan dan tidak berganti saat update atau revisi.
-3. **Tentang:** dua baris tepat di bawah footer — nama pembuat (Toto Gutomo), lalu di bawahnya **"Guru SMA Negeri 3 Maliku"**.
-4. **Jenis dan ukuran huruf Tentang sama dengan footer** (satu gaya: kecil, tetap terbaca dengan kontras teks ≥ 4,5:1 di tema terang dan gelap, Bagian 6 butir 5d).
-5. **Dua tempat:** (a) **Cover** — footer, lalu Tentang di bawahnya; label versi tetap kecil di bagian bawah Cover. (b) **Panel Guru** — bagian **Tentang** (A5 butir 7) berisi dua baris yang sama.
-6. **Tidak mengganggu tata letak:** footer dan Tentang tidak ditampilkan di langkah game (agar tetap satu layar, A10f) dan tidak menambah ikon di header (A5 tetap baku). Tidak ada pengaturan untuk menyembunyikannya.
+3. **Tombol ⓘ Tentang:** ditempatkan tepat di bawah footer pada Cover, dengan tipografi kecil yang konsisten dengan footer namun tetap jelas sebagai tombol interaktif; kontras teks ≥ 4,5:1 pada tema terang dan gelap serta area sentuh yang layak di HP.
+4. **Dua pintu, satu modal:** tombol ⓘ Tentang di Cover dan tombol ⓘ Tentang di Panel Guru (A5 butir 7) membuka **modal overlay yang sama**, bukan dua salinan konten dan bukan navigasi ke halaman terpisah. Akses dari Cover tidak membutuhkan login atau kode guru.
+5. **Isi modal Tentang (WAJIB, urutan baku):** (a) judul course; (b) kode seri/course, misalnya NUM10; (c) deskripsi singkat yang spesifik terhadap materi dan tujuan course; (d) **Teknologi yang Digunakan**, hanya teknologi yang benar-benar digunakan; (e) **Lisensi**, berisi hak cipta, ketentuan pemakaian, dan atribusi aset pihak ketiga sesuai lisensi aktual—jangan mengklaim lisensi terbuka tanpa dasar; (f) **Pengembang**: "Toto Gutomo, S.Pd., Gr., M.Pd." pada baris pertama dan "Guru SMA Negeri 3 Maliku" pada baris berikutnya; (g) tagline **< ❤️ / > Ngoding pakai Vibe, Ngajar pakai Hati**; (h) tombol/tautan aktif **totogutomo.com** menuju https://totogutomo.com. Data judul, kode, deskripsi, teknologi, dan lisensi harus sesuai course masing-masing, tidak menyalin contoh sebagai fakta.
+6. **Perilaku modal:** tampil di atas layar saat ini tanpa mengubah langkah belajar, identitas, mode guru, atau progres; dapat ditutup melalui tombol X yang jelas, tombol Kembali Android, dan Escape pada perangkat berkeyboard. Setelah ditutup, fokus kembali ke tombol pembuka dan layar sebelumnya tetap utuh. Modal dapat digulir pada layar kecil, memiliki fokus keyboard dan label aksesibel, serta tidak menutup kontrol penting secara permanen.
+7. **Tidak mengganggu tata letak:** footer dan tombol Tentang hanya berada pada Cover; di Panel Guru hanya tombol Tentang. Keduanya tidak ditampilkan pada langkah game dan tidak menambah ikon header (A5 tetap baku). Label versi tetap kecil di bagian bawah Cover dan Panel Guru.
 7. Berlaku untuk produksi berikutnya dan update yang diminta Toto Gutomo; course lama tidak diubah otomatis (Keberlakuan).
 
 ---
@@ -680,7 +681,7 @@ Cara memeriksa tiap butir mengikuti **verifikasi berjenjang** (Bagian 6 butir 5�
 7. **Game dapat dimainkan dengan sentuh langsung** (B6.6).
 8. **Gerbang Baca** lengkap sesuai B3, dan di Mode Panggung memakai **Ruang Baca sesuai B3.1** (tanpa scroll halaman); ikon tidak menutup sendiri (B3 butir 2a), hitung mundur berjeda (B3 butir 2b), maksimal 6 ikon, akhir hitung mundur senyap (B24 aturan 5).
 9. Bila Sinematik dipakai: anatomi B22 lengkap, sekali per sesi, ↻ Ulang, tonton ulang, tombol lewati di Fasil/EZ.
-10. **Footer baku dan Tentang** sesuai B26: pola benar, tahun = tahun pembuatan, huruf Tentang sama dengan footer, tampil di Cover dan Panel Guru, tidak muncul di langkah game.
+10. **Footer baku dan Tentang** sesuai B26: pola benar, tahun = tahun pembuatan, tombol Tentang tersedia di bawah footer Cover dan di Panel Guru, keduanya membuka satu modal overlay B26 berisi seluruh informasi wajib, tidak mengubah progres dan tidak muncul di langkah game.
 
 ---
 
@@ -727,7 +728,7 @@ Cara memeriksa tiap butir mengikuti **verifikasi berjenjang** (Bagian 6 butir 5�
 - [ ] Final Boss mode sesuai kesepakatan; hanya menguji TP yang sah lewat PG; bank 12+4 → 8+2 → loop; tidak ada opsi kembar. **Bandel:** PGK damage ×2 all-or-nothing. **Tuntas:** PG 10 dan PGK 20 (maks 120), skor paket = poin ÷ 120 × 100, tuntas bila paket terbaik ≥ 70 (PGK wajib benar minimal 1), paket dievaluasi setelah selesai penuh, paket berikutnya mengutamakan soal belum muncul/salah, opsi Lanjut/Ulangi setelah tuntas, saran baca ulang materi di paket ke-3, 6, 9…, bar "SKOR MENUJU 70" (tanpa HP boss).
 - [ ] **Menu Langkah (☰)**: daftar 10 langkah, status ✅ ▶ 🔒, langkah terkunci → toast, langkah selesai bisa dibuka ulang, menutup setelah memilih, game berjeda saat menu terbuka; tombol akhir tiap langkah "Lanjut ke [nama langkah] →".
 - [ ] Login sesuai A1; "Lanjutkan Progres" eksplisit.
-- [ ] **Footer baku & Tentang (B26)**: "[judul] ©[tahun pembuatan] | totogutomo.com" di Cover; Tentang (nama pembuat + "Guru SMA Negeri 3 Maliku") tepat di bawahnya dengan jenis dan ukuran huruf sama; Tentang juga ada di Panel Guru; tidak tampil di langkah game; kontras ≥ 4,5:1 di tema terang dan gelap.
+- [ ] **Footer baku & Tentang (B26)**: "[judul] ©[tahun pembuatan] | totogutomo.com" di Cover; tombol ⓘ Tentang tepat di bawah footer dan tombol kedua di Panel Guru; keduanya membuka modal overlay yang sama dengan judul, kode, deskripsi, teknologi aktual, lisensi/atribusi aktual, identitas lengkap pengembang, tagline, dan tautan aktif totogutomo.com; tutup X/Kembali Android/Escape berfungsi, fokus kembali, progres tetap, dapat digulir di HP, kontras ≥ 4,5:1; tidak ada tombol Tentang di langkah game.
 - [ ] **Header A5**: ☰ | 🔊 🔉 Aa ◐ 🔐 lengkap & berurutan; Panel Guru berisi kode, status mode, Mode Presentasi, Cek Kode Sertifikat, Reset Identitas, Tentang, label versi.
 - [ ] **Auto-fit**: Genggam 100% lebar dan **langkah game satu layar tanpa scroll** di 360×560, 390×700, 430×780, 600×900, 768×1024; Panggung tanpa scroll untuk langkah game (satu kolom tiga pita) di 1024×768, 1366×768, 1920×1080, ±1280×650; HP mendatar menampilkan ajakan putar di langkah game; ukuran batas (899×700, 900×499, 900×500) memilih mode yang benar.
 - [ ] Mode Presentasi: hanya Fasil/EZ, tidak tersimpan, penanda tampil, efek lingkaran sentuh, A−/A+ di panel melayang (bukan di header).
@@ -779,7 +780,7 @@ Cara memeriksa tiap butir mengikuti **verifikasi berjenjang** (Bagian 6 butir 5�
 | **CTA terkunci** | Layar akhir sinematik; tombol lanjut aktif setelah beat terakhir |
 | **Pseudo-3D / Ilusi 3D** | Kesan 3D dari gradasi, cahaya, bayangan, dan kilau kaca pada Canvas 2D/CSS |
 | **Footer Baku** | Baris identitas "[judul] ©[tahun pembuatan] \| totogutomo.com" di Cover (B26) |
-| **Tentang** | Dua baris nama pembuat + "Guru SMA Negeri 3 Maliku", huruf sama dengan footer; ada di bawah footer Cover dan di Panel Guru (B26) |
+| **Tentang** | Tombol pada Cover (di bawah footer) dan Panel Guru membuka satu modal overlay informasi course lengkap, identitas pengembang, tagline, lisensi, dan tautan totogutomo.com (B26) |
 | **Panel Guru** | Modal 🔐 berisi kode Fasil/EZ, status mode, Mode Presentasi, Cek Kode Sertifikat, Reset Identitas, Tentang |
 | **Bandel / Tuntas** | Mode Final Boss sumatif (tanpa kalah, boss pulih bila salah, loop) / formatif (gerbang skor 70 per paket, tanpa HP boss, PGK wajib benar minimal 1) |
 | **Paket (Final Boss)** | Satu kumpulan 8 PG + 2 PGK acak; pada Tuntas dinilai setelah selesai penuh dan skor terbaik yang dipakai |

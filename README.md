@@ -23,8 +23,9 @@ SCTG adalah standar pembuatan **Perjalanan Belajar** digital berbasis Pembelajar
 ## Yang baru di V.4.4
 
 - **Footer Baku** di setiap course: `[judul course] ©[tahun pembuatan] | totogutomo.com`. Tahun adalah tahun pembuatan course dan tidak berubah saat update.
-- **Tentang** di bawah footer: nama pembuat, lalu "Guru SMA Negeri 3 Maliku", dengan jenis dan ukuran huruf sama dengan footer.
-- Tampil di dua tempat: **Cover** dan **Panel Guru** (🔐). Tidak muncul di langkah game agar tetap satu layar.
+- **Tombol ⓘ Tentang** tepat di bawah footer Cover dan tombol kedua di **Panel Guru** (🔐). Keduanya membuka **satu modal overlay** yang sama, bukan menampilkan identitas secara langsung atau berpindah halaman.
+- Modal memuat judul course, kode seri, deskripsi singkat, teknologi yang benar-benar digunakan, lisensi dan atribusi aktual, pengembang **Toto Gutomo, S.Pd., Gr., M.Pd. — Guru SMA Negeri 3 Maliku**, tagline **< ❤️ / > Ngoding pakai Vibe, Ngajar pakai Hati**, serta tombol aktif **https://totogutomo.com**.
+- Modal dapat ditutup dengan X, Kembali Android, atau Escape; progres belajar tidak berubah. Tombol Tentang tidak muncul di langkah game agar tetap satu layar.
 - Aturan lengkap ada di pasal **B26**, dengan penyesuaian di A1, A5, Bagian 4, Bagian 6, daftar QA, dan Glosarium.
 
 Course lama tidak diubah otomatis; pasal baru berlaku untuk produksi berikutnya dan update yang diminta.

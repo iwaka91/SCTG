@@ -48,3 +48,7 @@ Situs: [totogutomo.com](https://totogutomo.com)
 ---
 
 SCTG V.4.4 © Toto Gutomo, Guru SMA Negeri 3 Maliku
+
+## Khusus ChatGPT — bukan untuk Claude
+
+Folder [`CHATGPT_ONLY/`](CHATGPT_ONLY/) berisi **SCTG Course Factory V1.4** (engine, benchmark, QA, dan arsip penuh) yang **HANYA DIGUNAKAN OLEH CHATGPT**. Folder ini **bukan bagian standar umum SCTG dan tidak perlu dibaca Claude**. Pengguna Claude cukup membaca dokumen standar resmi [`SCTG_V4.4.md`](SCTG_V4.4.md). Factory menyertakan arsip V4.3 untuk reproduksi historis; **jika ada perbedaan, standar resmi V4.4 di root tetap berlaku**.

@@ -1,0 +1,410 @@
+{
+  "course": "NUM09 Claude reference — read-only benchmark, not factory-certified",
+  "html": "/mnt/data/SCTG_Course_Factory_ChatGPT/benchmarks/NUM09_Claude_readonly.html",
+  "timestamp": "2026-10-16T15:23:10.008058+00:00",
+  "status": "NOT_RELEASE_READY",
+  "sha256": "102f3b4f09fffb2b0f1bbcde5ab2c341676a6eb143aedd5dab99c13d0c9dfdb0",
+  "transport": "sandbox",
+  "matrix": [
+    [
+      "Genggam_390x700",
+      390,
+      700
+    ],
+    [
+      "Panggung_1280x650",
+      1280,
+      650
+    ],
+    [
+      "Batas_900x500",
+      900,
+      500
+    ]
+  ],
+  "findings": [
+    {
+      "scope": "static",
+      "status": "PASS",
+      "description": "Viewport metadata present",
+      "evidence": null
+    },
+    {
+      "scope": "static",
+      "status": "PASS",
+      "description": "No external scripts or styles",
+      "evidence": null
+    },
+    {
+      "scope": "cover/Genggam_390x700",
+      "status": "PASS",
+      "description": "No horizontal document overflow",
+      "evidence": {
+        "width": 390,
+        "height": 700,
+        "scrollWidth": 390,
+        "bodyScrollWidth": 390,
+        "scrollHeight": 839,
+        "overflowX": 0,
+        "overflowY": 139,
+        "oversizeElements": [
+          {
+            "tag": "rect",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": -15,
+            "right": 405
+          },
+          {
+            "tag": "circle",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": -46,
+            "right": 247
+          },
+          {
+            "tag": "path",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": -25,
+            "right": 415
+          },
+          {
+            "tag": "path",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": -25,
+            "right": 415
+          },
+          {
+            "tag": "rect",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": -25,
+            "right": 415
+          },
+          {
+            "tag": "path",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": -25,
+            "right": 415
+          },
+          {
+            "tag": "g",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": 143,
+            "right": 415
+          },
+          {
+            "tag": "path",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": 143,
+            "right": 415
+          }
+        ]
+      }
+    },
+    {
+      "scope": "cover/Genggam_390x700",
+      "status": "PASS",
+      "description": "Target visible",
+      "evidence": null
+    },
+    {
+      "scope": "cover/Genggam_390x700",
+      "status": "PASS",
+      "description": "No uncaught JS errors",
+      "evidence": null
+    },
+    {
+      "scope": "cover/Panggung_1280x650",
+      "status": "PASS",
+      "description": "No horizontal document overflow",
+      "evidence": {
+        "width": 1280,
+        "height": 650,
+        "scrollWidth": 1280,
+        "bodyScrollWidth": 1280,
+        "scrollHeight": 850,
+        "overflowX": 0,
+        "overflowY": 200,
+        "oversizeElements": [
+          {
+            "tag": "circle",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": -96,
+            "right": 800
+          },
+          {
+            "tag": "path",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": -32,
+            "right": 1312
+          },
+          {
+            "tag": "path",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": -32,
+            "right": 1312
+          },
+          {
+            "tag": "rect",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": -32,
+            "right": 1312
+          },
+          {
+            "tag": "path",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": -32,
+            "right": 1312
+          },
+          {
+            "tag": "g",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": 480,
+            "right": 1312
+          },
+          {
+            "tag": "path",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": 480,
+            "right": 1312
+          },
+          {
+            "tag": "path",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": 480,
+            "right": 1312
+          }
+        ]
+      }
+    },
+    {
+      "scope": "cover/Panggung_1280x650",
+      "status": "PASS",
+      "description": "Target visible",
+      "evidence": null
+    },
+    {
+      "scope": "cover/Panggung_1280x650",
+      "status": "PASS",
+      "description": "No uncaught JS errors",
+      "evidence": null
+    },
+    {
+      "scope": "cover/Batas_900x500",
+      "status": "PASS",
+      "description": "No horizontal document overflow",
+      "evidence": {
+        "width": 900,
+        "height": 500,
+        "scrollWidth": 900,
+        "bodyScrollWidth": 900,
+        "scrollHeight": 850,
+        "overflowX": 0,
+        "overflowY": 350,
+        "oversizeElements": [
+          {
+            "tag": "circle",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": -67,
+            "right": 563
+          },
+          {
+            "tag": "path",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": -22,
+            "right": 923
+          },
+          {
+            "tag": "path",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": -22,
+            "right": 923
+          },
+          {
+            "tag": "rect",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": -22,
+            "right": 923
+          },
+          {
+            "tag": "path",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": -22,
+            "right": 923
+          },
+          {
+            "tag": "g",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": 338,
+            "right": 923
+          },
+          {
+            "tag": "path",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": 338,
+            "right": 923
+          },
+          {
+            "tag": "path",
+            "id": "",
+            "cls": "[object SVGAnimatedString]",
+            "left": 338,
+            "right": 923
+          }
+        ]
+      }
+    },
+    {
+      "scope": "cover/Batas_900x500",
+      "status": "PASS",
+      "description": "Target visible",
+      "evidence": null
+    },
+    {
+      "scope": "cover/Batas_900x500",
+      "status": "PASS",
+      "description": "No uncaught JS errors",
+      "evidence": null
+    },
+    {
+      "scope": "reading/coverage",
+      "status": "BLOCKED",
+      "description": "Required scene missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "game/coverage",
+      "status": "BLOCKED",
+      "description": "Required scene missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "typing/coverage",
+      "status": "BLOCKED",
+      "description": "Required scene missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "silent/coverage",
+      "status": "BLOCKED",
+      "description": "Required scene missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "boss/coverage",
+      "status": "BLOCKED",
+      "description": "Required scene missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "certificate/coverage",
+      "status": "BLOCKED",
+      "description": "Required scene missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "cinematic/coverage",
+      "status": "BLOCKED",
+      "description": "Cinematic scene must be checked unless explicitly not used in design",
+      "evidence": null
+    },
+    {
+      "scope": "flow/normal",
+      "status": "BLOCKED",
+      "description": "Required end-to-end flow/assertions missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "flow/ez",
+      "status": "BLOCKED",
+      "description": "Required end-to-end flow/assertions missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "flow/fasil",
+      "status": "BLOCKED",
+      "description": "Required end-to-end flow/assertions missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "flow/reset",
+      "status": "BLOCKED",
+      "description": "Required end-to-end flow/assertions missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "flow/resume",
+      "status": "BLOCKED",
+      "description": "Required end-to-end flow/assertions missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "manual/pedagogy",
+      "status": "BLOCKED",
+      "description": "Human/AI visual or pedagogy review absent",
+      "evidence": null
+    },
+    {
+      "scope": "manual/visual",
+      "status": "BLOCKED",
+      "description": "Human/AI visual or pedagogy review absent",
+      "evidence": null
+    },
+    {
+      "scope": "manual/game_feel",
+      "status": "BLOCKED",
+      "description": "Human/AI visual or pedagogy review absent",
+      "evidence": null
+    },
+    {
+      "scope": "manual/cinematic",
+      "status": "BLOCKED",
+      "description": "Human/AI visual or pedagogy review absent",
+      "evidence": null
+    },
+    {
+      "scope": "manual/accessibility",
+      "status": "BLOCKED",
+      "description": "Human/AI visual or pedagogy review absent",
+      "evidence": null
+    },
+    {
+      "scope": "matrix",
+      "status": "BLOCKED",
+      "description": "Fast subset is not full SCTG matrix",
+      "evidence": null
+    },
+    {
+      "scope": "origin",
+      "status": "BLOCKED",
+      "description": "Sandbox uses simulated localStorage; native persistence and downloads not certified",
+      "evidence": null
+    }
+  ],
+  "summary": {
+    "PASS": 11,
+    "FAIL": 0,
+    "BLOCKED": 19
+  }
+}

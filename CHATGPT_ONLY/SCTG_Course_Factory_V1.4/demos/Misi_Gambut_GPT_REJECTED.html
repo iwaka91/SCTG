@@ -1,0 +1,2039 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Misi Gambut: Menyelamatkan Lahan — NUM SCTG 4.3</title>
+  <style>
+    :root {
+      --bg: #f3f7f5;
+      --bg-soft: #e8f0ec;
+      --panel: rgba(255,255,255,0.88);
+      --panel-strong: rgba(255,255,255,0.96);
+      --text: #18322b;
+      --muted: #5f736d;
+      --line: rgba(24,50,43,0.12);
+      --accent: #2f72ff;
+      --accent-2: #1b9f77;
+      --accent-warm: #f2a33b;
+      --danger: #c54b4b;
+      --success: #1f8b55;
+      --shadow: 0 14px 42px rgba(17,55,43,0.18);
+      --header-h: 64px;
+      --radius: 20px;
+      --font-scale: 1;
+      --presentation-scale: 1;
+      --canvas-h: 280px;
+    }
+    body.theme-dark {
+      --bg: #08110e;
+      --bg-soft: #0e1a16;
+      --panel: rgba(17,27,24,0.84);
+      --panel-strong: rgba(13,21,19,0.94);
+      --text: #ecf4f0;
+      --muted: #95a8a0;
+      --line: rgba(236,244,240,0.10);
+      --accent: #60a5ff;
+      --accent-2: #31c48d;
+      --accent-warm: #f5b14f;
+      --danger: #ff8080;
+      --success: #31c48d;
+      --shadow: 0 16px 48px rgba(0,0,0,0.35);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin:0; padding:0; background: linear-gradient(180deg,var(--bg),var(--bg-soft)); color:var(--text); font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; min-height:100%; font-size: calc(16px * var(--font-scale)); }
+    body { overflow-x:hidden; }
+    body.reduced-motion * { animation-duration: .01ms !important; animation-iteration-count:1 !important; transition-duration:.01ms !important; scroll-behavior:auto !important; }
+    .app-shell { min-height:100vh; transform: scale(var(--presentation-scale)); transform-origin: top center; }
+    .screen { display:none; }
+    .screen.active { display:block; }
+    .hidden { display:none !important; }
+    .muted { color: var(--muted); }
+    .small { font-size: .9rem; }
+    .tiny { font-size: .78rem; }
+    .glass { background: var(--panel); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border:1px solid var(--line); box-shadow: var(--shadow); }
+    .panel { border-radius: var(--radius); padding: 18px; background: var(--panel); border:1px solid var(--line); box-shadow: var(--shadow); }
+    .panel h3, .panel h4, .panel p { margin-top:0; }
+    .btn, button {
+      border:0; border-radius:16px; padding: 12px 16px; font:inherit; font-weight: 700; cursor:pointer;
+      background: linear-gradient(180deg,var(--accent),#1c57db); color:white; box-shadow: 0 10px 24px rgba(47,114,255,.25);
+      transition: transform .16s ease, filter .18s ease, background .18s ease, opacity .18s ease;
+      min-height: 48px;
+    }
+    .btn:hover, button:hover { filter: brightness(1.03); }
+    .btn:active, button:active { transform: scale(.98); }
+    .btn.secondary { background: linear-gradient(180deg,#ffffff,#e8efff); color:#21438e; box-shadow: 0 10px 22px rgba(72,100,160,.12); }
+    body.theme-dark .btn.secondary { background: linear-gradient(180deg,#17223c,#10203a); color:#dbe8ff; }
+    .btn.ghost { background: transparent; color: var(--accent); box-shadow:none; border:1px solid var(--line); }
+    .btn.warn { background: linear-gradient(180deg,#e46e5f,#c64d41); }
+    .btn.success { background: linear-gradient(180deg,#28aa73,#17734c); }
+    .btn.locked { background: #c4c9d2; color:#6f7680; box-shadow:none; cursor:not-allowed; }
+    body.theme-dark .btn.locked { background:#2a3431; color:#76837e; }
+    input, textarea, select {
+      width:100%; border-radius:14px; border:1px solid var(--line); background: var(--panel-strong); color:var(--text); padding: 12px 14px; font:inherit;
+      min-height: 48px;
+    }
+    textarea { min-height: 110px; resize: vertical; }
+    .wrap { width:min(1100px, calc(100% - 24px)); margin: 0 auto; }
+    .header {
+      position: sticky; top:0; z-index: 40; display:none; height:var(--header-h); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      background: color-mix(in oklab, var(--panel-strong) 86%, transparent); border-bottom:1px solid var(--line);
+    }
+    .header.visible { display:block; }
+    .header-inner {
+      max-width: 1180px; margin:0 auto; display:grid; grid-template-columns: auto 1fr auto; align-items:center; gap:10px;
+      height:100%; padding: 8px 12px;
+    }
+    .head-left, .head-right { display:flex; align-items:center; gap:8px; }
+    .icon-btn {
+      width: 42px; height: 42px; min-height:42px; border-radius: 14px; padding:0; display:grid; place-items:center;
+      background: var(--panel); color: var(--text); border:1px solid var(--line); box-shadow: 0 8px 20px rgba(0,0,0,.08);
+      font-size: 1rem; font-weight: 800;
+    }
+    .titlebar { min-width:0; }
+    .titlebar strong, .titlebar span { display:block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .progress-strip { height:6px; border-radius:99px; background: rgba(120,120,120,.16); overflow:hidden; margin-top:4px; }
+    .progress-strip > div { height:100%; width:0; background: linear-gradient(90deg,var(--accent),var(--accent-2)); transition: width .28s ease; }
+    .main { padding: 18px 0 28px; }
+    .main.with-header { padding-top: 20px; }
+    .step-view { display:none; }
+    .step-view.active { display:block; }
+    .step-card { padding: 18px; border-radius: 24px; background: var(--panel-strong); border:1px solid var(--line); box-shadow: var(--shadow); }
+    .step-head { display:flex; justify-content:space-between; gap:12px; align-items:flex-start; margin-bottom: 14px; }
+    .tag { display:inline-flex; align-items:center; gap:8px; font-size:.88rem; padding:8px 12px; border-radius:999px; background: rgba(47,114,255,.12); color: var(--accent); font-weight:700; }
+    .grid-2 { display:grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap:16px; }
+    .grid-3 { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 16px; }
+    .stat { padding:16px; border-radius:18px; background: linear-gradient(180deg, rgba(255,255,255,.55), rgba(255,255,255,.15)); border:1px solid var(--line); }
+    body.theme-dark .stat { background: linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.02)); }
+    .cover {
+      min-height:100vh; position:relative; overflow:hidden; background:
+      radial-gradient(circle at 20% 20%, rgba(255,255,255,.12), transparent 36%),
+      radial-gradient(circle at 80% 14%, rgba(255,225,152,.25), transparent 22%),
+      linear-gradient(180deg, #d8ece3 0%, #97c6ab 26%, #4f8f6e 58%, #234c39 100%);
+      color:#0b251d;
+    }
+    body.theme-dark .cover { background: linear-gradient(180deg, #0a1511 0%, #153627 34%, #224232 60%, #08110d 100%); color:#f3fbf7; }
+    .cover-scene { position:absolute; inset:0; pointer-events:none; overflow:hidden; }
+    .mist, .mist2 { position:absolute; left:-10%; right:-10%; height:180px; background: radial-gradient(ellipse at center, rgba(255,255,255,.55), rgba(255,255,255,0) 65%); filter: blur(14px); animation: float 18s ease-in-out infinite; }
+    .mist { bottom: 18%; }
+    .mist2 { bottom: 44%; opacity:.55; animation-duration: 24s; }
+    .sun { position:absolute; top:8%; right:12%; width:140px; height:140px; border-radius:50%; background: radial-gradient(circle at 30% 30%, #fff5d8, #ffcf79 45%, rgba(255,207,121,.15) 70%, transparent 74%); box-shadow: 0 0 60px rgba(255,207,121,.6); }
+    .mount { position:absolute; bottom:34%; left:-6%; width:52%; height:24%; border-radius: 50% 55% 0 0; background: linear-gradient(180deg,#3a7658,#244734); filter: drop-shadow(0 10px 30px rgba(0,0,0,.18)); }
+    .mount.b { left:auto; right:-8%; width:60%; height:30%; background: linear-gradient(180deg,#588d72,#23402f); }
+    .boardwalk { position:absolute; bottom:10%; left:10%; width:50%; height:18px; background: linear-gradient(180deg,#91623d,#5c3a20); transform: rotate(-8deg); box-shadow: 0 8px 16px rgba(0,0,0,.24); }
+    .tower { position:absolute; right:18%; bottom:23%; width:18px; height:180px; background: linear-gradient(180deg,#63482d,#3a2816); box-shadow: 14px 18px 0 rgba(0,0,0,.1); }
+    .tower::before { content:""; position:absolute; top:-36px; left:-28px; width:72px; height:36px; background: linear-gradient(180deg,#8a6743,#5a4028); border-radius: 8px 8px 2px 2px; }
+    .jeep-shape { position:absolute; bottom:12%; left:26%; width:110px; height:56px; background: linear-gradient(180deg,#395a46,#1f3127); border-radius: 16px 18px 14px 14px; box-shadow: 0 10px 20px rgba(0,0,0,.26); transform: skewX(-14deg); }
+    .jeep-shape::before, .jeep-shape::after { content:""; position:absolute; bottom:-8px; width:22px; height:22px; background:#131917; border-radius:50%; box-shadow: inset 0 0 0 5px #55645d; }
+    .jeep-shape::before { left:12px; } .jeep-shape::after { right:12px; }
+    .cover-content { position:relative; z-index:2; width:min(1100px, calc(100% - 24px)); margin:0 auto; min-height:100vh; display:grid; grid-template-columns: 1.15fr .85fr; align-items:center; gap: 18px; padding: 24px 0; }
+    .cover-copy { color: inherit; }
+    .cover-copy h1 { font-size: clamp(2rem, 4vw, 4rem); line-height:1.02; margin:.2rem 0 .8rem; letter-spacing:-.02em; }
+    .cover-copy p { max-width: 650px; font-size: 1.02rem; color: color-mix(in oklab, currentColor 72%, transparent); }
+    .login-card { padding: 20px; border-radius: 26px; background: rgba(255,255,255,.88); border:1px solid rgba(255,255,255,.5); box-shadow: 0 18px 48px rgba(0,0,0,.16); }
+    body.theme-dark .login-card { background: rgba(8,15,12,.82); border-color: rgba(255,255,255,.08); }
+    .version-foot { margin-top:10px; opacity:.8; }
+    .row { display:grid; gap:12px; }
+    .row-2 { display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:12px; }
+    .cta-row { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+    .menu-drawer {
+      position:fixed; top:0; left:0; width:min(360px,100%); height:100vh; z-index:70; background: var(--panel-strong); box-shadow: 18px 0 40px rgba(0,0,0,.18);
+      transform: translateX(-102%); transition: transform .28s ease; border-right: 1px solid var(--line); display:flex; flex-direction:column;
+    }
+    .menu-drawer.open { transform: translateX(0); }
+    .menu-overlay { position:fixed; inset:0; background: rgba(0,0,0,.34); z-index:65; opacity:0; pointer-events:none; transition: opacity .2s ease; }
+    .menu-overlay.open { opacity:1; pointer-events:auto; }
+    .menu-head { padding: 14px 16px; display:flex; justify-content:space-between; align-items:center; border-bottom:1px solid var(--line); }
+    .menu-list { padding: 12px; overflow:auto; flex:1; }
+    .menu-item { display:flex; gap:10px; align-items:center; padding: 12px; border-radius: 16px; border:1px solid var(--line); margin-bottom:10px; background: var(--panel); cursor:pointer; }
+    .menu-item .num { width:34px; height:34px; border-radius:12px; background: linear-gradient(180deg,var(--accent),#1b57df); color:white; display:grid; place-items:center; font-weight:800; }
+    .menu-item.locked { opacity:.58; }
+    .menu-item.current { outline: 2px solid color-mix(in oklab, var(--accent) 55%, white); }
+    .menu-item.done { background: linear-gradient(180deg, color-mix(in oklab, var(--accent-2) 16%, var(--panel)), var(--panel)); }
+    .status-chip { font-size:.78rem; padding: 4px 8px; border-radius:999px; background: rgba(47,114,255,.1); color:var(--accent); font-weight:700; }
+    .modal-wrap { position: fixed; inset:0; background: rgba(0,0,0,.45); z-index:90; display:none; align-items:center; justify-content:center; padding:16px; }
+    .modal-wrap.show { display:flex; }
+    .modal { width:min(720px, 100%); max-height:calc(100vh - 32px); overflow:auto; background: var(--panel-strong); border-radius:24px; padding:20px; border:1px solid var(--line); box-shadow: 0 24px 70px rgba(0,0,0,.25); }
+    .modal.sm { width:min(520px, 100%); }
+    .teacher-grid { display:grid; gap:14px; }
+    .toggle-line { display:flex; justify-content:space-between; gap:12px; align-items:center; padding:10px 0; border-bottom:1px dashed var(--line); }
+    .toast-box { position: fixed; left:50%; bottom: 20px; transform: translateX(-50%); z-index:120; display:grid; gap:8px; width:min(92vw, 520px); }
+    .toast { background: rgba(17,25,23,.92); color:white; padding: 12px 16px; border-radius:14px; box-shadow: 0 12px 28px rgba(0,0,0,.28); opacity:0; transform: translateY(10px); animation: toastIn .3s ease forwards; }
+    .present-tools {
+      position:fixed; right:14px; bottom:18px; z-index:50; display:none; gap:8px; flex-direction:column;
+    }
+    .present-tools.show { display:flex; }
+    .touch-ring { position:fixed; inset:auto; width:26px; height:26px; border:3px solid rgba(47,114,255,.78); border-radius:50%; pointer-events:none; transform: translate(-50%,-50%); animation: ring .6s ease forwards; z-index:150; }
+    .gate-grid { display:grid; gap:12px; }
+    .gate-card { border:1px solid var(--line); border-radius:18px; background: color-mix(in oklab, var(--panel) 85%, white 15%); overflow:hidden; }
+    .gate-top { padding: 14px 16px; display:flex; justify-content:space-between; gap:12px; align-items:center; cursor:pointer; }
+    .gate-body { display:none; padding: 0 16px 16px; border-top:1px solid var(--line); }
+    .gate-card.open .gate-body { display:block; }
+    .timer-pill { min-width:72px; text-align:center; padding:6px 10px; border-radius:999px; font-weight:800; background: rgba(47,114,255,.1); color:var(--accent); }
+    .gate-action { margin-top:14px; display:flex; justify-content:flex-end; }
+    .confirm-box { margin-top: 14px; padding: 14px; border-radius: 16px; border:1px solid var(--line); background: var(--panel); }
+    .reading-room { display:grid; grid-template-columns: 300px 1fr; gap:16px; min-height:480px; }
+    .reading-menu { border:1px solid var(--line); border-radius:20px; padding:14px; background: var(--panel); display:flex; flex-direction:column; }
+    .reading-menu-list { display:grid; gap:10px; overflow:auto; }
+    .reading-panel { border:1px solid var(--line); border-radius:20px; background: var(--panel); padding: 18px; display:flex; flex-direction:column; min-height:460px; }
+    .reading-content { overflow:auto; flex:1; padding-right:6px; }
+    .gate-mini { border:1px solid var(--line); border-radius:16px; padding:10px 12px; display:flex; gap:10px; align-items:flex-start; cursor:pointer; }
+    .gate-mini.current { outline: 2px solid color-mix(in oklab, var(--accent) 50%, white); }
+    .gate-mini.done { background: rgba(31,139,85,.08); }
+    .gate-mini.locked { opacity:.55; }
+    .stage-game {
+      display:grid; gap:12px; grid-template-rows: auto 1fr auto;
+      height: calc(100vh - var(--header-h) - 72px);
+      min-height: 500px;
+    }
+    .strip { border:1px solid var(--line); border-radius:20px; background: var(--panel); padding: 14px; }
+    .strip.question { max-height: 22vh; overflow:auto; }
+    .strip.controls { display:grid; gap:12px; }
+    .game-canvas-wrap { position:relative; border:1px solid var(--line); border-radius:24px; overflow:hidden; background: linear-gradient(180deg,#d8efe2 0%, #7cb48d 30%, #315845 100%); box-shadow: inset 0 0 40px rgba(0,0,0,.08); min-height: var(--canvas-h); }
+    body.theme-dark .game-canvas-wrap { background: linear-gradient(180deg,#0f1e19 0%, #184131 30%, #143023 100%); }
+    #gameCanvas { width:100%; height:100%; display:block; }
+    .arena-hud { position:absolute; top:10px; left:10px; right:10px; display:flex; justify-content:space-between; gap:8px; pointer-events:none; }
+    .hud-pill { background: rgba(255,255,255,.84); color:#18322b; padding: 8px 12px; border-radius: 999px; font-size:.86rem; font-weight:800; box-shadow: 0 8px 20px rgba(0,0,0,.12); }
+    body.theme-dark .hud-pill { background: rgba(6,17,13,.86); color:#f2faf5; }
+    .answer-grid { display:grid; grid-template-columns: repeat(2,minmax(0,1fr)); gap:10px; }
+    .answer-card { border:1px solid var(--line); border-radius:16px; padding: 12px; background: var(--panel-strong); cursor:pointer; min-height:56px; display:flex; align-items:center; }
+    .answer-card.selected { outline:2px solid color-mix(in oklab,var(--accent) 60%, white); background: rgba(47,114,255,.08); }
+    .table-wrap { overflow:auto; }
+    table { width:100%; border-collapse:collapse; }
+    th, td { border-bottom:1px solid var(--line); padding:10px 8px; text-align:left; vertical-align:top; }
+    .boss-wrap { display:grid; gap:16px; }
+    .boss-bar { height:22px; border-radius:999px; background: rgba(120,120,120,.18); overflow:hidden; }
+    .boss-fill { height:100%; width:100%; background: linear-gradient(90deg, #e67b45, #c43b3b); transition: width .3s ease; }
+    .boss-stage { position:relative; min-height: 180px; border-radius:24px; background: radial-gradient(circle at top, rgba(255,210,150,.22), transparent 30%), linear-gradient(180deg,#2d473f,#10231c); overflow:hidden; }
+    .boss-character { position:absolute; left:50%; top:42%; transform: translate(-50%, -50%); width: 180px; height: 180px; background: radial-gradient(circle at 40% 35%, #b5ffdc, #74b28a 28%, #355846 60%, #0f1e18 100%); border-radius: 50%; box-shadow: 0 0 40px rgba(112,209,152,.22); }
+    .boss-character::before, .boss-character::after { content:""; position:absolute; top:56px; width:18px; height:18px; border-radius:50%; background:#f7d45f; box-shadow: 0 0 18px #f7d45f; }
+    .boss-character::before { left:46px; } .boss-character::after { right:46px; }
+    .boss-character .mouth { position:absolute; bottom:48px; left:50%; transform: translateX(-50%); width:72px; height:32px; border-radius: 0 0 42px 42px; background: rgba(20,20,20,.55); }
+    .pulse { animation: pulse 2.3s ease infinite; }
+    .cinematic { position:fixed; inset:0; background: radial-gradient(circle at 50% 18%, rgba(255,215,153,.2), transparent 20%), linear-gradient(180deg,#10211d,#09140f 40%, #050907); z-index:200; color:#f0f7f4; display:none; }
+    .cinematic.show { display:block; }
+    .cin-wrap { width:min(980px, calc(100% - 32px)); margin:0 auto; height:100%; display:grid; grid-template-rows: 1fr auto auto; gap:10px; align-items:center; }
+    .cin-stage { position:relative; height:min(46vh, 420px); overflow:hidden; border-radius:28px; background: linear-gradient(180deg,#214334,#0c1713); border:1px solid rgba(255,255,255,.08); box-shadow: 0 24px 70px rgba(0,0,0,.4); }
+    .cin-beat { min-height: 120px; text-align:center; padding: 0 12px; }
+    .cin-beat p { font-size: clamp(1.1rem, 2.8vw, 1.8rem); line-height:1.5; opacity:0; transform: translateY(10px); transition: all .5s ease; }
+    .cin-beat p.show { opacity:1; transform: translateY(0); }
+    .cin-actions { display:flex; justify-content:center; gap:10px; flex-wrap:wrap; padding-bottom:18px; }
+    .scene-orb, .scene-cloud, .scene-tree, .scene-tower, .scene-jeep, .scene-boss { position:absolute; }
+    .scene-orb { width:110px; height:110px; border-radius:50%; top:12%; right:12%; background: radial-gradient(circle at 36% 36%, #fff6d8, #ffcb6b 45%, rgba(255,203,107,0) 70%); box-shadow:0 0 60px rgba(255,210,132,.45); }
+    .scene-cloud { left:-4%; right:-4%; height:130px; background: radial-gradient(ellipse at center, rgba(255,255,255,.3), rgba(255,255,255,0) 70%); filter: blur(12px); animation: float 16s ease-in-out infinite; }
+    .scene-cloud.c2 { top:46%; opacity:.5; }
+    .scene-cloud.c1 { top:22%; }
+    .scene-tree { bottom:0; width:0; height:0; border-left:34px solid transparent; border-right:34px solid transparent; border-bottom:120px solid #1d4a35; filter: drop-shadow(0 10px 10px rgba(0,0,0,.24)); }
+    .scene-tree::after { content:""; position:absolute; left:-8px; bottom:-128px; width:16px; height:40px; background:#523b22; }
+    .scene-tower { right:22%; bottom:12%; width:14px; height:150px; background:#5e442a; }
+    .scene-tower::before { content:""; position:absolute; top:-26px; left:-18px; width:50px; height:26px; background:#8a6944; border-radius: 6px 6px 0 0; }
+    .scene-jeep { left:18%; bottom:14%; width:90px; height:44px; background: linear-gradient(180deg,#436853,#23372c); border-radius: 14px; transform: skewX(-14deg); box-shadow: 0 10px 20px rgba(0,0,0,.28); animation: jeepBob 2.2s ease-in-out infinite; }
+    .scene-jeep::before, .scene-jeep::after { content:""; position:absolute; bottom:-8px; width:18px; height:18px; background:#121816; border-radius:50%; box-shadow: inset 0 0 0 4px #55625c; }
+    .scene-jeep::before { left:10px; } .scene-jeep::after { right:10px; }
+    .scene-boss { left:50%; top:48%; transform: translate(-50%, -50%); width:180px; height:180px; border-radius:50%; background: radial-gradient(circle at 40% 35%, #b5ffdc, #67a47f 30%, #2d4b3a 60%, rgba(0,0,0,.2) 76%); box-shadow: 0 0 40px rgba(112,209,152,.28); animation: pulse 2.8s ease infinite; }
+    .scene-boss::before, .scene-boss::after { content:""; position:absolute; top:60px; width:16px; height:16px; border-radius:50%; background:#fbdc6e; box-shadow: 0 0 18px #fbdc6e; }
+    .scene-boss::before { left:46px; } .scene-boss::after { right:46px; }
+    .qa-badge { padding: 10px 12px; border-radius:16px; border:1px solid var(--line); background: var(--panel); }
+    .check-list { display:grid; gap:10px; }
+    .chip-row { display:flex; flex-wrap:wrap; gap:8px; }
+    .chip { padding:7px 10px; border-radius:999px; background: rgba(47,114,255,.1); color:var(--accent); font-weight:700; font-size:.82rem; }
+    .reflect-emoji { font-size: 2rem; cursor:pointer; padding:10px; border-radius:14px; border:1px solid var(--line); background: var(--panel); }
+    .reflect-emoji.selected { outline: 2px solid color-mix(in oklab,var(--accent) 55%, white); transform: translateY(-2px); }
+    .cert-preview { min-height: 220px; border:1px dashed var(--line); border-radius:18px; padding: 18px; background: linear-gradient(180deg, rgba(255,255,255,.3), rgba(255,255,255,.08)); }
+    body.theme-dark .cert-preview { background: linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); }
+    .rotate-note {
+      position:absolute; inset:0; background: rgba(0,0,0,.68); color:white; display:none; align-items:center; justify-content:center; text-align:center; padding:20px; z-index:10;
+    }
+    .rotate-note.show { display:flex; }
+    .status-box { display:flex; gap:12px; flex-wrap:wrap; }
+    .status-box .stat { min-width:140px; }
+    .footer-nav { margin-top: 18px; display:flex; justify-content:flex-end; gap:10px; flex-wrap:wrap; }
+    .sound-off { text-decoration: line-through; opacity:.7; }
+    .copy-box { padding:12px; border-radius:14px; background: var(--panel); border:1px solid var(--line); }
+
+    @keyframes float { 0%,100%{ transform: translateX(0) translateY(0);} 50%{ transform: translateX(24px) translateY(8px);} }
+    @keyframes toastIn { from { opacity:0; transform: translateY(10px);} to { opacity:1; transform: translateY(0);} }
+    @keyframes ring { from { opacity: .8; transform: translate(-50%,-50%) scale(.4);} to { opacity:0; transform: translate(-50%,-50%) scale(2.1);} }
+    @keyframes pulse { 0%,100% { transform: translate(-50%, -50%) scale(1);} 50% { transform: translate(-50%, -50%) scale(1.05);} }
+    @keyframes pulse2 { 0%,100% { transform: scale(1);} 50% { transform: scale(1.03);} }
+    @keyframes jeepBob { 0%,100% { transform: skewX(-14deg) translateY(0);} 50% { transform: skewX(-14deg) translateY(-4px);} }
+
+    @media (prefers-reduced-motion: reduce) { body { scroll-behavior:auto; } }
+    @media (max-width: 980px) {
+      .cover-content, .grid-3 { grid-template-columns:1fr; }
+      .grid-2, .row-2, .reading-room { grid-template-columns:1fr; }
+      .reading-room { min-height:auto; }
+      .reading-panel { min-height:320px; }
+      .answer-grid { grid-template-columns:1fr; }
+      .stage-game { min-height: 500px; }
+      .cover-copy { order:2; }
+      .login-card { order:1; }
+    }
+    @media (max-width: 640px) {
+      :root { --header-h: 68px; }
+      .wrap { width:min(100%, calc(100% - 14px)); }
+      .titlebar span { font-size:.85rem; }
+      .titlebar strong { font-size:.98rem; }
+      .head-right { gap:6px; }
+      .icon-btn { width:40px; height:40px; }
+      .row-2 { grid-template-columns:1fr; }
+      .step-head { flex-direction:column; }
+      .cover-copy h1 { font-size: clamp(2rem, 10vw, 3rem); }
+      .stage-game { height: calc(100vh - var(--header-h) - 32px); min-height: 520px; }
+      .strip.question { max-height: 20vh; }
+    }
+  </style>
+</head>
+<body>
+<div class="app-shell" id="appShell">
+  <header class="header" id="appHeader" aria-label="Header aplikasi">
+    <div class="header-inner">
+      <div class="head-left">
+        <button class="icon-btn" id="menuBtn" aria-label="Menu">☰</button>
+        <div class="titlebar">
+          <strong id="headerTitle">Langkah 1/10 · Perjalanan</strong>
+          <span id="headerMeta">Nama murid · kelas</span>
+          <div class="progress-strip" aria-hidden="true"><div id="topProgress"></div></div>
+        </div>
+      </div>
+      <div></div>
+      <div class="head-right">
+        <button class="icon-btn" id="soundBtn" aria-label="Suara">🔊</button>
+        <button class="icon-btn" id="speakBtn" aria-label="Dengarkan">🔉</button>
+        <button class="icon-btn" id="fontBtn" aria-label="Ukuran huruf">Aa</button>
+        <button class="icon-btn" id="themeBtn" aria-label="Tema">◐</button>
+        <button class="icon-btn" id="teacherBtn" aria-label="Panel Guru">🔐</button>
+      </div>
+    </div>
+  </header>
+
+  <div class="menu-overlay" id="menuOverlay"></div>
+  <aside class="menu-drawer" id="menuDrawer" aria-label="Menu Langkah">
+    <div class="menu-head">
+      <div>
+        <strong>Menu Langkah</strong>
+        <div class="tiny muted">NUM • Misi Gambut</div>
+      </div>
+      <button class="icon-btn" id="menuCloseBtn">✕</button>
+    </div>
+    <div class="menu-list" id="menuList"></div>
+  </aside>
+
+  <main class="main" id="appMain">
+    <section id="coverScreen" class="screen active cover">
+      <div class="cover-scene">
+        <div class="sun"></div>
+        <div class="mist"></div>
+        <div class="mist2"></div>
+        <div class="mount"></div>
+        <div class="mount b"></div>
+        <div class="boardwalk"></div>
+        <div class="tower"></div>
+        <div class="jeep-shape"></div>
+      </div>
+      <div class="cover-content">
+        <div class="cover-copy">
+          <div class="tag">NUM • Geometri & Pengukuran</div>
+          <h1>Misi Gambut:<br/>Menyelamatkan Lahan</h1>
+          <p>Selamat datang di <strong>Perjalanan Belajar</strong> numerasi tentang luas lahan, kebutuhan sumber daya, dan keputusan berbasis bukti. Kamu akan berperan sebagai penjaga gambut yang harus menghitung, membandingkan, dan menentukan sektor penanganan paling tepat.</p>
+          <div class="chip-row">
+            <div class="chip">Mobile-first</div>
+            <div class="chip">Mode Panggung otomatis</div>
+            <div class="chip">Final Boss Bandel</div>
+            <div class="chip">Standar 4.3</div>
+          </div>
+        </div>
+        <div class="login-card glass">
+          <div class="tag">Masuk ke Langkah Belajar</div>
+          <div class="row" style="margin-top:14px;">
+            <label>Nama murid<input id="loginName" type="text" placeholder="Ketik nama lengkap" /></label>
+            <div class="row-2">
+              <label>Kelas<input id="loginClass" type="text" placeholder="contoh: X1" /></label>
+              <label>Sekolah<input id="loginSchool" type="text" value="SMA Negeri 3 Maliku" /></label>
+            </div>
+          </div>
+          <div class="cta-row" style="margin-top:16px;">
+            <button class="btn" id="startBtn">Masuk ke Perjalanan</button>
+            <button class="btn secondary hidden" id="resumeBtn">Lanjutkan Progres</button>
+          </div>
+          <div style="margin-top:14px;">
+            <button class="btn ghost" id="teacherAccessLink">🔐 Akses Guru</button>
+          </div>
+          <div class="version-foot tiny muted">Standar 4.3</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="courseScreen" class="screen">
+      <div class="wrap">
+        <div id="stepContainer"></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="present-tools" id="presentTools">
+    <button class="icon-btn" id="presentShrink">A−</button>
+    <button class="icon-btn" id="presentGrow">A+</button>
+    <button class="icon-btn" id="presentClose">✕</button>
+  </div>
+
+  <div class="toast-box" id="toastBox"></div>
+
+  <div class="modal-wrap" id="teacherModalWrap">
+    <div class="modal sm" role="dialog" aria-modal="true">
+      <div class="step-head">
+        <div>
+          <h3 style="margin-bottom:6px;">Panel Guru</h3>
+          <div class="tiny muted">Fasilitator, EZ, Mode Presentasi, cek sertifikat, dan reset total.</div>
+        </div>
+        <button class="icon-btn" data-close="#teacherModalWrap">✕</button>
+      </div>
+      <div class="teacher-grid">
+        <div class="panel">
+          <label>Kode akses
+            <input id="teacherCodeInput" type="password" placeholder="Masukkan kode akses" />
+          </label>
+          <div class="cta-row" style="margin-top:10px;">
+            <button class="btn" id="teacherUnlockBtn">Buka</button>
+            <button class="btn ghost" id="teacherClearModeBtn">Matikan Fasilitator / Matikan EZ</button>
+          </div>
+          <div class="tiny muted" style="margin-top:10px;">Fasil membuka semua langkah dan mempercepat kunci waktu. EZ membuka semua langkah sekaligus menandai jawaban benar untuk demonstrasi belajar bersama.</div>
+        </div>
+        <div class="panel">
+          <div class="toggle-line"><span>Status mode</span><strong id="teacherModeText">Normal</strong></div>
+          <div class="toggle-line"><span>Mode Presentasi</span><button class="btn secondary" id="togglePresentBtn">Aktifkan</button></div>
+          <div class="toggle-line"><span>Reset total identitas & progres</span><button class="btn warn" id="resetIdentityBtn">🗑 Reset Identitas</button></div>
+        </div>
+        <div class="panel">
+          <h4 style="margin-bottom:8px;">Cek Kode Sertifikat</h4>
+          <div class="row">
+            <input id="certCheckName" type="text" placeholder="Nama murid" />
+            <div class="row-2">
+              <input id="certCheckClass" type="text" placeholder="Kelas" />
+              <input id="certCheckDate" type="date" />
+            </div>
+            <input id="certCheckSchool" type="text" placeholder="Sekolah" value="SMA Negeri 3 Maliku" />
+            <input id="certCheckCode" type="text" placeholder="KODECOURSE-XXXX-XXXX" />
+          </div>
+          <div class="cta-row" style="margin-top:10px;">
+            <button class="btn secondary" id="certCheckBtn">Cek Kode Sertifikat</button>
+          </div>
+          <div id="certCheckResult" class="tiny muted" style="margin-top:10px;">Belum ada pemeriksaan.</div>
+          <div class="version-foot tiny muted">Standar 4.3</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-wrap" id="feedbackModalWrap">
+    <div class="modal sm" role="dialog" aria-modal="true">
+      <div class="step-head"><h3 id="feedbackTitle" style="margin:0;">Umpan Balik</h3><button class="icon-btn" id="feedbackCloseBtn">✕</button></div>
+      <div id="feedbackContent"></div>
+      <div class="footer-nav"><button class="btn" id="feedbackNextBtn">Lanjut</button></div>
+    </div>
+  </div>
+
+  <div class="modal-wrap" id="confirmModalWrap">
+    <div class="modal sm" role="dialog" aria-modal="true">
+      <div class="step-head"><h3 id="confirmTitle" style="margin:0;">Konfirmasi</h3><button class="icon-btn" data-close="#confirmModalWrap">✕</button></div>
+      <div id="confirmContent"></div>
+      <div class="footer-nav"><button class="btn ghost" data-close="#confirmModalWrap">Batal</button><button class="btn warn" id="confirmOkBtn">Lanjutkan</button></div>
+    </div>
+  </div>
+
+  <div class="cinematic" id="cinematicWrap">
+    <div class="cin-wrap">
+      <div class="cin-stage" id="cinStage"></div>
+      <div class="cin-beat"><p id="cinBeatText"></p></div>
+      <div class="cin-actions">
+        <button class="btn secondary" id="cinReplayBtn">↻ Ulang</button>
+        <button class="btn ghost hidden" id="cinSkipBtn">⏭ Lewati Animasi</button>
+        <button class="btn locked" id="cinContinueBtn">Lanjut</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+(() => {
+  const STORAGE_KEY = 'sctg_num_misi_gambut_v43';
+  const COURSE_CODE = 'NUMMG01';
+  const VERSION_LABEL = 'Standar 4.3';
+  const DEFAULT_SCHOOL = 'SMA Negeri 3 Maliku';
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (prefersReducedMotion) document.body.classList.add('reduced-motion');
+
+  const stepNames = [
+    'Cover/Login','TP & Situasi','Aktivasi','Eksplorasi Bermakna','Penalaran & Bukti',
+    'Produk','Final Boss','Kesimpulan & Nilai-Nilai Pembelajaran','Refleksi','Sertifikat'
+  ];
+  const stepIcons = ['🏕️','🎯','🧭','🚙','📊','📝','☁️','📘','💬','🏅'];
+
+  const gameCheckpoints = [
+    {
+      id: 'cp1',
+      title: 'Pos 1 — Sektor A',
+      x: 0.22, y: 0.72,
+      question: 'Luas total Sektor A terdiri atas bidang 20 × 20 m dan 10 × 20 m. Berapa luas totalnya?',
+      options: ['500 m²', '600 m²', '700 m²', '800 m²'],
+      correct: 1,
+      explain: 'Sektor A = (20 × 20) + (10 × 20) = 400 + 200 = 600 m².',
+      tag: 'dataA',
+      reward: { areaA: 600 }
+    },
+    {
+      id: 'cp2',
+      title: 'Pos 2 — Sektor B',
+      x: 0.56, y: 0.42,
+      question: 'Luas total Sektor B terdiri atas bidang 25 × 20 m dan 10 × 20 m. Berapa luas totalnya?',
+      options: ['650 m²', '680 m²', '700 m²', '720 m²'],
+      correct: 2,
+      explain: 'Sektor B = (25 × 20) + (10 × 20) = 500 + 200 = 700 m².',
+      tag: 'dataB',
+      reward: { areaB: 700 }
+    },
+    {
+      id: 'cp3',
+      title: 'Pos 3 — Gudang Logistik',
+      x: 0.8, y: 0.68,
+      question: 'Setiap 100 m² memerlukan 1 unit. Jika luas Sektor A = 600 m² dan luas Sektor B = 700 m², berapa kebutuhan unit untuk masing-masing sektor?',
+      options: ['A = 5 unit, B = 6 unit', 'A = 6 unit, B = 7 unit', 'A = 6 unit, B = 8 unit', 'A = 7 unit, B = 7 unit'],
+      correct: 1,
+      explain: 'Sektor A membutuhkan 600 ÷ 100 = 6 unit, sedangkan Sektor B membutuhkan 700 ÷ 100 = 7 unit.',
+      tag: 'dataUnits',
+      reward: { unitA: 6, unitB: 7 }
+    }
+  ];
+
+  const bossBank = {
+    pg: [
+      {q:'Luas bidang 18 m × 20 m adalah …', options:['320 m²','340 m²','360 m²','380 m²'], a:2, tp:'C3'},
+      {q:'Luas gabungan dua bidang 12×20 m dan 8×20 m adalah …', options:['320 m²','360 m²','400 m²','420 m²'], a:2, tp:'C3'},
+      {q:'Jika satu sektor memiliki luas 500 m² dan setiap 100 m² memerlukan 1 unit, kebutuhan unitnya adalah …', options:['4 unit','5 unit','6 unit','7 unit'], a:1, tp:'C3'},
+      {q:'Bidang A 15×20 m dan bidang B 10×20 m. Luas total keduanya adalah …', options:['450 m²','500 m²','550 m²','600 m²'], a:1, tp:'C3'},
+      {q:'Sektor C 24×20 m dan 6×20 m. Luas totalnya adalah …', options:['560 m²','580 m²','600 m²','620 m²'], a:2, tp:'C3'},
+      {q:'Jika luas lahan 900 m², kebutuhan unit simulasi adalah …', options:['7 unit','8 unit','9 unit','10 unit'], a:2, tp:'C3'},
+      {q:'Tersedia 8 unit dan 1 unit harus menjadi cadangan. Sektor A membutuhkan 6 unit, Sektor B membutuhkan 7 unit. Sektor yang dapat dipilih agar cakupan lebih luas adalah …', options:['Sektor A','Sektor B','Keduanya sama','Tidak ada yang dapat dipilih'], a:1, tp:'C4'},
+      {q:'Dua sektor sama-sama bisa ditangani. Dasar numerik paling kuat untuk memilih salah satu adalah …', options:['Warna denah paling cerah','Luas lebih besar tetapi masih memenuhi cadangan','Sektor pertama yang dilihat','Jawaban teman'], a:1, tp:'C4'},
+      {q:'Jika Sektor D luasnya 800 m², butuh 8 unit. Dengan aturan menyisakan 1 unit cadangan dari total 8 unit, keputusan yang tepat adalah …', options:['Memilih Sektor D','Menolak karena tidak ada cadangan','Memilih semua sektor','Mengurangi luas secara asal'], a:1, tp:'C4'},
+      {q:'Sektor E membutuhkan 6 unit untuk 600 m². Sektor F membutuhkan 7 unit untuk 700 m². Jika keduanya memenuhi aturan cadangan, pilihan untuk cakupan terluas adalah …', options:['Sektor E','Sektor F','Keduanya tidak bisa','Pilih secara acak'], a:1, tp:'C4'},
+      {q:'Manakah alasan paling tepat saat merekomendasikan sektor?', options:['Karena letaknya dekat menara','Karena luasnya lebih besar dan kebutuhan unitnya masih sesuai persediaan','Karena warnanya hijau','Karena dipilih lebih dulu'], a:1, tp:'C4'},
+      {q:'Jika dua pilihan sama luasnya, tetapi satu memerlukan unit lebih banyak daripada yang lain, keputusan paling rasional adalah …', options:['Pilih yang memerlukan unit lebih sedikit','Pilih yang unitnya lebih banyak','Jangan menghitung unit','Pilih berdasarkan tebakkan'], a:0, tp:'C4'},
+    ],
+    pgk: [
+      {q:'Pilih semua pernyataan yang benar.', options:['Luas persegi panjang dapat dihitung dengan panjang × lebar.','Jika tersedia 8 unit dan wajib menyisakan 1 unit, maka maksimal unit terpakai adalah 7.','Luas 700 m² memerlukan 5 unit.','Sektor dengan luas lebih besar boleh dipilih jika kebutuhan unitnya masih memenuhi aturan cadangan.'], answers:[0,1,3], tp:'mix'},
+      {q:'Pilih semua pernyataan yang benar.', options:['600 m² memerlukan 6 unit jika setiap 100 m² membutuhkan 1 unit.','700 m² lebih kecil dari 600 m².','Alasan numerik penting untuk membuat rekomendasi.','Keputusan tidak perlu memperhatikan jumlah unit.'], answers:[0,2], tp:'mix'},
+      {q:'Pilih semua pernyataan yang benar.', options:['Dua persegi panjang yang tidak tumpang tindih dapat dijumlahkan luasnya.','Sektor 800 m² dengan 8 unit kebutuhan masih menyisakan 1 unit bila stok total 8 unit.','Jika dua sektor sama-sama memenuhi aturan, sektor dengan luas lebih besar dapat diprioritaskan.','Perbandingan luas tidak ada gunanya dalam pengambilan keputusan.'], answers:[0,2], tp:'mix'},
+      {q:'Pilih semua pernyataan yang benar.', options:['Produk rekomendasi harus memuat data perhitungan.','TP Keterampilan Proses menuntut alasan numerik, bukan asal memilih.','Salah hitung dapat membuat keputusan sumber daya menjadi keliru.','Cadangan tidak perlu diperhatikan sama sekali.'], answers:[0,1,2], tp:'mix'},
+    ]
+  };
+
+  const cinematicData = {
+    tp: {
+      key: 'seenTpCinematic',
+      scene: 'tp',
+      beats: [
+        'Pagi itu, kabut tipis menggantung di atas lahan gambut saat radio menara patroli mulai berderak.',
+        'Dua sektor memerlukan penanganan segera. Tim harus bergerak cepat, tetapi perlengkapan tidak boleh dipakai sembarangan.',
+        'Kamu ditugasi membaca denah, menghitung luas, dan memperkirakan kebutuhan unit untuk tiap sektor.',
+        'Keputusanmu harus berdasarkan angka, bukan tebakan.',
+        'Masuklah ke pos kendali, pahami tujuan pembelajaran, lalu mulai misi penyelamatan lahan.'
+      ],
+      title: 'Sinyal dari Menara'
+    },
+    boss: {
+      key: 'seenBossCinematic',
+      scene: 'boss',
+      beats: [
+        'Menjelang akhir misi, kabut pekat turun dan membentuk bayangan yang mengaburkan perhitungan.',
+        'Inilah Final Boss: Kabut Salah Hitung. Ia hanya bisa dilawan dengan jawaban yang tepat.',
+        'Kamu akan menghadapi 10 soal per putaran: 8 pilihan ganda dan 2 pilihan ganda kompleks.',
+        'Jawaban benar melukai boss. PG kompleks yang benar memberi serangan dua kali lipat. Jika salah, boss memulihkan diri.',
+        'Siapkan nalar terbaikmu. Saatnya menuntaskan misi dengan perhitungan yang teliti.'
+      ],
+      title: 'Kabut Salah Hitung'
+    }
+  };
+
+  const app = {
+    state: loadState() || defaultState(),
+    currentStep: 0,
+    soundsReady: false,
+    audioCtx: null,
+    speechUtterance: null,
+    gateTimers: {},
+    conclusionTimer: null,
+    productRendered: false,
+    currentCinematic: null,
+    currentBeatIndex: 0,
+    cinematicTimer: null,
+    feedbackResolver: null,
+    confirmResolver: null,
+    presentScale: 1,
+    game: null,
+    boss: null,
+  };
+
+  const el = {
+    body: document.body,
+    appHeader: qs('#appHeader'),
+    appMain: qs('#appMain'),
+    topProgress: qs('#topProgress'),
+    headerTitle: qs('#headerTitle'),
+    headerMeta: qs('#headerMeta'),
+    menuBtn: qs('#menuBtn'),
+    menuDrawer: qs('#menuDrawer'),
+    menuOverlay: qs('#menuOverlay'),
+    menuCloseBtn: qs('#menuCloseBtn'),
+    menuList: qs('#menuList'),
+    coverScreen: qs('#coverScreen'),
+    courseScreen: qs('#courseScreen'),
+    stepContainer: qs('#stepContainer'),
+    soundBtn: qs('#soundBtn'),
+    speakBtn: qs('#speakBtn'),
+    fontBtn: qs('#fontBtn'),
+    themeBtn: qs('#themeBtn'),
+    teacherBtn: qs('#teacherBtn'),
+    loginName: qs('#loginName'),
+    loginClass: qs('#loginClass'),
+    loginSchool: qs('#loginSchool'),
+    startBtn: qs('#startBtn'),
+    resumeBtn: qs('#resumeBtn'),
+    teacherAccessLink: qs('#teacherAccessLink'),
+    teacherModalWrap: qs('#teacherModalWrap'),
+    teacherCodeInput: qs('#teacherCodeInput'),
+    teacherUnlockBtn: qs('#teacherUnlockBtn'),
+    teacherClearModeBtn: qs('#teacherClearModeBtn'),
+    teacherModeText: qs('#teacherModeText'),
+    togglePresentBtn: qs('#togglePresentBtn'),
+    resetIdentityBtn: qs('#resetIdentityBtn'),
+    certCheckName: qs('#certCheckName'),
+    certCheckClass: qs('#certCheckClass'),
+    certCheckSchool: qs('#certCheckSchool'),
+    certCheckDate: qs('#certCheckDate'),
+    certCheckCode: qs('#certCheckCode'),
+    certCheckBtn: qs('#certCheckBtn'),
+    certCheckResult: qs('#certCheckResult'),
+    feedbackModalWrap: qs('#feedbackModalWrap'),
+    feedbackTitle: qs('#feedbackTitle'),
+    feedbackContent: qs('#feedbackContent'),
+    feedbackNextBtn: qs('#feedbackNextBtn'),
+    feedbackCloseBtn: qs('#feedbackCloseBtn'),
+    confirmModalWrap: qs('#confirmModalWrap'),
+    confirmTitle: qs('#confirmTitle'),
+    confirmContent: qs('#confirmContent'),
+    confirmOkBtn: qs('#confirmOkBtn'),
+    toastBox: qs('#toastBox'),
+    presentTools: qs('#presentTools'),
+    presentGrow: qs('#presentGrow'),
+    presentShrink: qs('#presentShrink'),
+    presentClose: qs('#presentClose'),
+    cinematicWrap: qs('#cinematicWrap'),
+    cinStage: qs('#cinStage'),
+    cinBeatText: qs('#cinBeatText'),
+    cinReplayBtn: qs('#cinReplayBtn'),
+    cinSkipBtn: qs('#cinSkipBtn'),
+    cinContinueBtn: qs('#cinContinueBtn'),
+    appShell: qs('#appShell')
+  };
+
+  function defaultState() {
+    return {
+      identity: { name:'', class:'', school: DEFAULT_SCHOOL },
+      theme: matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
+      soundOn: true,
+      fontLevel: 0,
+      stepUnlocked: 0,
+      stepDone: Array(10).fill(false),
+      gates: {},
+      mode: 'normal',
+      presentMode: false,
+      seenTpCinematic: false,
+      seenBossCinematic: false,
+      game: {
+        checkpointIndex: 0,
+        answered: {},
+        selectedAnswer: null,
+        areaA: null,
+        areaB: null,
+        unitA: null,
+        unitB: null,
+        finished: false,
+      },
+      reasoning: { selectAreaA:'', selectAreaB:'', selectUnitA:'', selectUnitB:'', recommended:'', justification:'' },
+      product: { recommended:'', reason:'', teacherPhone:'' },
+      boss: { hp:10, maxHp:10, queue:[], pointer:0, selected: null, multiSelected: [], defeated: false, questionsAnswered: 0 },
+      reflection: { mood:'', note:'', teacherPhone:'' },
+      certificate: { date:'', code:'' },
+      conclusionRemaining: null
+    };
+  }
+
+  function loadState() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)); } catch(e) { return null; }
+  }
+  function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(app.state)); updateResumeVisibility(); }
+  function resetToDefault(keepPrefs = false) {
+    const prev = app.state;
+    app.state = defaultState();
+    if (keepPrefs) {
+      app.state.theme = prev.theme;
+      app.state.soundOn = prev.soundOn;
+      app.state.fontLevel = prev.fontLevel;
+    }
+    app.state.identity = { name:'', class:'', school: DEFAULT_SCHOOL };
+    app.currentStep = 0;
+    saveState();
+    renderAll();
+    showCover();
+  }
+
+  function qs(sel, root=document){ return root.querySelector(sel); }
+  function qsa(sel, root=document){ return Array.from(root.querySelectorAll(sel)); }
+  function escapeHtml(str=''){ return String(str).replace(/[&<>"']/g, s => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[s])); }
+  function hashCode(input='') {
+    let h = 0;
+    for (let i=0;i<input.length;i++) h = Math.imul(31,h) + input.charCodeAt(i) | 0;
+    return Math.abs(h).toString(16);
+  }
+  const FACIL_HASH = hashCode('123456a');
+  const EZ_HASH = hashCode('ezbgt');
+  function inFastMode(){ return app.state.mode === 'fasil' || app.state.mode === 'ez'; }
+  function gateTime(words, divisor=3, min=5) { return inFastMode() ? 2 : Math.max(min, Math.ceil(words/divisor)); }
+  function formatSec(s){ return `${s} dtk`; }
+  function formatDateDisplay(iso) {
+    if (!iso) return '-';
+    const d = new Date(iso + 'T00:00:00');
+    return d.toLocaleDateString('id-ID', { day:'2-digit', month:'long', year:'numeric' });
+  }
+  function cleanPhone(v) {
+    const digits = String(v || '').replace(/\D/g,'');
+    if (!digits) return '';
+    if (digits.startsWith('62')) return digits;
+    if (digits.startsWith('0')) return '62' + digits.slice(1);
+    return digits;
+  }
+  function computeCertCode(name, klass, school, date) {
+    const base = `${name}|${klass}|${school}|${COURSE_CODE}|${date}`.trim().toUpperCase();
+    const raw = Math.abs([...base].reduce((acc, ch) => (acc * 131 + ch.charCodeAt(0)) % 0xfffffffe, 7)).toString(16).padStart(8,'0').slice(0,8).toUpperCase();
+    return `${COURSE_CODE}-${raw.slice(0,4)}-${raw.slice(4,8)}`;
+  }
+  function wordCount(text=''){ return text.trim().split(/\s+/).filter(Boolean).length; }
+  function detectMode() {
+    const w = window.innerWidth;
+    const h = window.innerHeight;
+    return (w > h && w >= 900 && h >= 500) ? 'stage' : 'hand';
+  }
+  function showToast(message) {
+    const t = document.createElement('div');
+    t.className = 'toast';
+    t.textContent = message;
+    el.toastBox.appendChild(t);
+    setTimeout(() => { t.style.opacity = '0'; t.style.transform = 'translateY(8px)'; }, 2400);
+    setTimeout(() => t.remove(), 3000);
+  }
+
+  function initAudio() {
+    if (app.soundsReady) return;
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return;
+    app.audioCtx = new Ctx();
+    app.soundsReady = true;
+  }
+  function sound(type='tap') {
+    if (!app.state.soundOn) return;
+    initAudio();
+    if (!app.audioCtx) return;
+    if (app.audioCtx.state === 'suspended') app.audioCtx.resume();
+    const ctx = app.audioCtx;
+    const now = ctx.currentTime;
+    const play = (freq=440, duration=.08, vol=.05, wave='sine', delay=0) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.type = wave; osc.frequency.setValueAtTime(freq, now + delay);
+      gain.gain.setValueAtTime(0.0001, now + delay);
+      gain.gain.exponentialRampToValueAtTime(vol, now + delay + 0.01);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + delay + duration);
+      osc.connect(gain).connect(ctx.destination);
+      osc.start(now + delay); osc.stop(now + delay + duration + 0.02);
+    };
+    const sounds = {
+      tap: () => play(460,.06,.04,'triangle'),
+      lanjut: () => { play(540,.08,.05,'sine'); play(720,.08,.05,'sine',.06); },
+      benar: () => { play(620,.08,.05,'triangle'); play(800,.12,.05,'triangle',.05); },
+      salah: () => { play(210,.10,.05,'sawtooth'); play(160,.16,.04,'sawtooth',.06); },
+      unlock: () => { play(700,.08,.04,'triangle'); play(950,.12,.05,'triangle',.06); },
+      bossHit: () => { play(220,.07,.05,'square'); play(180,.11,.05,'square',.04); play(120,.14,.04,'square',.08); },
+      mission: () => { play(660,.08,.04,'sine'); play(880,.08,.05,'sine',.06); play(1100,.12,.05,'sine',.12); },
+      bossDown: () => { play(780,.08,.05,'triangle'); play(940,.10,.05,'triangle',.08); play(1170,.16,.06,'triangle',.16); },
+      opening: () => { play(330,.1,.04,'sine'); play(440,.1,.04,'sine',.08); play(660,.14,.05,'triangle',.16); }
+    };
+    (sounds[type] || sounds.tap)();
+  }
+
+  function speakCurrent() {
+    if (!('speechSynthesis' in window)) { showToast('Fitur bacakan belum didukung peramban ini.'); return; }
+    const activeStep = qsa('.step-view').find(x => x.classList.contains('active'));
+    if (!activeStep) return;
+    const textSource = activeStep.querySelector('[data-speak]')?.innerText || activeStep.innerText;
+    window.speechSynthesis.cancel();
+    const utter = new SpeechSynthesisUtterance(textSource.replace(/\s+/g,' ').trim());
+    utter.lang = 'id-ID'; utter.rate = 0.98; utter.pitch = 1;
+    app.speechUtterance = utter;
+    window.speechSynthesis.speak(utter);
+    showToast('Membacakan langkah aktif.');
+  }
+  function stopSpeaking(){ if ('speechSynthesis' in window) window.speechSynthesis.cancel(); }
+
+  function renderAll() {
+    applyPrefs();
+    renderCourse();
+    renderMenu();
+    updateHeader();
+    updateTeacherPanel();
+    updateResumeVisibility();
+  }
+
+  function applyPrefs() {
+    document.body.classList.toggle('theme-dark', app.state.theme === 'dark');
+    const fontScale = [1,1.1,1.22][app.state.fontLevel] || 1;
+    document.documentElement.style.setProperty('--font-scale', fontScale);
+    document.documentElement.style.setProperty('--presentation-scale', app.state.presentMode ? app.presentScale : 1);
+    el.soundBtn.textContent = app.state.soundOn ? '🔊' : '🔇';
+    el.speakBtn.textContent = '🔉';
+    el.themeBtn.textContent = '◐';
+    el.fontBtn.textContent = 'Aa';
+    el.presentTools.classList.toggle('show', app.state.presentMode);
+  }
+
+  function showCover() {
+    el.coverScreen.classList.add('active');
+    el.courseScreen.classList.remove('active');
+    el.appHeader.classList.remove('visible');
+    app.currentStep = 0;
+    stopSpeaking();
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+  }
+  function showCourse(stepIndex=1) {
+    el.coverScreen.classList.remove('active');
+    el.courseScreen.classList.add('active');
+    el.appHeader.classList.add('visible');
+    app.state.stepDone[0] = true;
+    app.state.stepUnlocked = Math.max(app.state.stepUnlocked, 1);
+    saveState();
+    goToStep(stepIndex);
+  }
+
+  function updateResumeVisibility() {
+    const hasProgress = !!(app.state.identity?.name && (app.state.stepUnlocked > 0 || app.state.stepDone.some(Boolean)));
+    el.resumeBtn.classList.toggle('hidden', !hasProgress);
+  }
+
+  function updateHeader() {
+    const idx = app.currentStep;
+    const isCover = idx === 0;
+    const name = app.state.identity.name || 'Nama murid';
+    const klass = app.state.presentMode ? 'Mode Presentasi' : (app.state.identity.class || 'kelas');
+    el.headerTitle.textContent = isCover ? 'Langkah 1/10 · Perjalanan' : `Langkah ${idx}/10 · ${stepIcons[idx-1]} ${stepNames[idx-1]}`;
+    el.headerMeta.textContent = `${name} • ${klass}`;
+    const pct = Math.max(0, app.state.stepDone.filter(Boolean).length / 10 * 100);
+    el.topProgress.style.width = pct + '%';
+  }
+
+  function renderCourse() {
+    const mode = detectMode();
+    const rotateNeeded = window.innerWidth > window.innerHeight && window.innerHeight < 500;
+    el.stepContainer.innerHTML = `
+      ${renderStep2(mode)}
+      ${renderStep3(mode)}
+      ${renderStep4(mode, rotateNeeded)}
+      ${renderStep5()}
+      ${renderStep6()}
+      ${renderStep7()}
+      ${renderStep8()}
+      ${renderStep9()}
+      ${renderStep10()}
+    `;
+    bindStepEvents();
+    restoreInputs();
+    initGame();
+    initBoss();
+    startConclusionLockIfNeeded();
+    renderMenu();
+  }
+
+  function stepShell(stepNum, title, tagHtml, inner, canContinue = false, nextText='') {
+    return `<section class="step-view" id="step-${stepNum}">
+      <article class="step-card">
+        <div class="step-head">
+          <div>
+            <div class="tag">${stepIcons[stepNum-1]} Langkah ${stepNum}/10</div>
+            <h2 style="margin:.45rem 0 .4rem;">${escapeHtml(title)}</h2>
+          </div>
+          <div>${tagHtml || ''}</div>
+        </div>
+        ${inner}
+        <div class="footer-nav">
+          ${stepNum > 1 ? `<button class="btn ghost" data-back-step="${stepNum-1}">← Kembali</button>` : ''}
+          ${canContinue ? `<button class="btn" data-next-step="${stepNum+1}">${escapeHtml(nextText || `Lanjut ke ${stepNames[stepNum]} →`)}</button>` : ''}
+        </div>
+      </article>
+    </section>`;
+  }
+
+  function renderStep2(mode) {
+    const items = [
+      { id:'tp1', title:'TP 1 — Menghitung luas', text:'Murid mampu menentukan luas bagian lahan gambut yang perlu ditangani berdasarkan denah berbentuk persegi panjang atau gabungan dua persegi panjang menggunakan ukuran yang tersedia.' },
+      { id:'tp2', title:'TP 2 — Membandingkan alternatif', text:'Murid mampu membandingkan dua alternatif wilayah penanganan berdasarkan hasil perhitungan luas dan kebutuhan sumber daya untuk menentukan wilayah yang dapat ditangani dengan persediaan yang tersedia.' },
+      { id:'tp3', title:'TP 3 — Menyusun rekomendasi', text:'Murid mampu menyusun rekomendasi penanganan lahan sederhana menggunakan tabel perhitungan dan alasan numerik yang dapat dipertanggungjawabkan.' }
+    ];
+    const body = `
+      <div class="panel" data-speak>
+        <p>Pos patroli menerima sinyal dari menara. Dua sektor lahan gambut membutuhkan penanganan. Kamu harus memahami tujuan pembelajaran sebelum mengambil keputusan berbasis data.</p>
+      </div>
+      ${renderGate('step2tp', items, 'Saya telah membaca dan memahami tujuan pembelajaran.', mode)}
+      <div class="footer-nav"><button class="btn secondary" id="replayTpCinematicBtn">🎬 Tonton Ulang Pengantar</button></div>
+    `;
+    return stepShell(2, 'TP & Situasi — Sinyal dari Menara', '<div class="status-chip">Orientasi masalah</div>', body, true, 'Lanjut ke Aktivasi →');
+  }
+
+  function renderStep3(mode) {
+    const items = [
+      { id:'act1', title:'Konsep 1 — Luas bidang', text:'Luas persegi panjang dihitung dengan mengalikan panjang dan lebar. Jika dua bidang tidak bertumpang tindih, luas total diperoleh dengan menjumlahkan luas masing-masing bidang.' },
+      { id:'act2', title:'Konsep 2 — Kebutuhan unit', text:'Dalam simulasi ini, setiap 100 meter persegi memerlukan 1 unit perlengkapan. Jika luas diketahui, kebutuhan unit dapat dihitung dengan membagi luas oleh 100.' },
+      { id:'act3', title:'Konsep 3 — Memilih alternatif', text:'Keputusan terbaik tidak hanya melihat luas terbesar, tetapi juga memastikan kebutuhan unit masih sesuai dengan persediaan dan aturan menyisakan cadangan.' }
+    ];
+    const inner = `
+      <div class="grid-2">
+        <div class="panel" data-speak>
+          <h3>Membaca denah sederhana</h3>
+          <p>Perhatikan bahwa tiap sektor terdiri atas dua bidang berbentuk persegi panjang. Gunakan ukuran panjang dan lebar untuk menentukan luas masing-masing sektor.</p>
+          <div class="copy-box">
+            <strong>Sektor A</strong> = 20 × 20 m dan 10 × 20 m<br/>
+            <strong>Sektor B</strong> = 25 × 20 m dan 10 × 20 m
+          </div>
+        </div>
+        <div class="panel">
+          <svg viewBox="0 0 520 320" style="width:100%; height:auto; display:block; border-radius:18px; background: linear-gradient(180deg,#eff7f1,#d8ece2); border:1px solid var(--line);">
+            <rect x="36" y="44" width="180" height="160" rx="18" fill="#76b486" stroke="#2b6a44" stroke-width="3"></rect>
+            <rect x="216" y="44" width="90" height="160" rx="18" fill="#92ca9f" stroke="#2b6a44" stroke-width="3"></rect>
+            <text x="130" y="28" text-anchor="middle" font-size="16" fill="#234735" font-weight="700">Sektor A</text>
+            <text x="126" y="126" text-anchor="middle" font-size="20" fill="#123021" font-weight="700">20 × 20 m</text>
+            <text x="261" y="126" text-anchor="middle" font-size="20" fill="#123021" font-weight="700">10 × 20 m</text>
+
+            <rect x="336" y="70" width="120" height="160" rx="18" fill="#e5c071" stroke="#84611f" stroke-width="3"></rect>
+            <rect x="456" y="70" width="48" height="160" rx="18" fill="#f2d692" stroke="#84611f" stroke-width="3"></rect>
+            <text x="410" y="54" text-anchor="middle" font-size="16" fill="#5b4311" font-weight="700">Sektor B</text>
+            <text x="396" y="152" text-anchor="middle" font-size="20" fill="#422f0a" font-weight="700">25 × 20 m</text>
+            <text x="480" y="152" text-anchor="middle" font-size="18" fill="#422f0a" font-weight="700">10 × 20 m</text>
+          </svg>
+        </div>
+      </div>
+      ${renderGate('step3act', items, 'Saya telah membaca dan memahami konsep awal.', mode)}
+      <div class="panel">
+        <h3>Denah interaktif mini</h3>
+        <p class="small muted">Ketuk tombol berikut untuk melihat contoh hasil perhitungan.</p>
+        <div class="cta-row">
+          <button class="btn secondary" data-denah-show="a">Tampilkan luas Sektor A</button>
+          <button class="btn secondary" data-denah-show="b">Tampilkan luas Sektor B</button>
+          <button class="btn secondary" data-denah-show="u">Tampilkan kebutuhan unit</button>
+        </div>
+        <div id="denahResult" class="copy-box" style="margin-top:12px;">Belum ada hasil ditampilkan.</div>
+      </div>
+    `;
+    return stepShell(3, 'Aktivasi — Membaca Denah', '<div class="status-chip">Mengorganisasi murid</div>', inner, true, 'Lanjut ke Eksplorasi Bermakna →');
+  }
+
+  function renderStep4(mode, rotateNeeded) {
+    const cp = gameCheckpoints[app.state.game.checkpointIndex] || gameCheckpoints[gameCheckpoints.length - 1];
+    const answeredCount = Object.keys(app.state.game.answered).length;
+    const dataReady = [app.state.game.areaA, app.state.game.areaB, app.state.game.unitA, app.state.game.unitB].filter(v => v !== null).length;
+    const inner = `
+      <div class="stage-game" data-speak>
+        <div class="strip question">
+          <div class="status-box">
+            <div class="stat"><strong>Tujuan langkah</strong><div class="tiny muted">Kumpulkan data luas dan kebutuhan unit melalui tiga pos patroli.</div></div>
+            <div class="stat"><strong>Pos selesai</strong><div class="tiny muted">${answeredCount}/3 pos terjawab</div></div>
+            <div class="stat"><strong>Data terkumpul</strong><div class="tiny muted">${dataReady}/4 data utama</div></div>
+          </div>
+          <div style="margin-top:12px;"><strong>${cp.title}</strong><p style="margin:.4rem 0 0;">${cp.question}</p></div>
+        </div>
+        <div class="game-canvas-wrap">
+          <canvas id="gameCanvas" aria-label="Arena Jeep Patroli Gambut"></canvas>
+          <div class="arena-hud">
+            <div class="hud-pill">Jeep Patroli Gambut</div>
+            <div class="hud-pill">Sentuh pos untuk bergerak</div>
+          </div>
+          <div class="rotate-note ${rotateNeeded ? 'show' : ''}"><div><strong>Putar HP ke posisi tegak untuk bermain.</strong><div class="small" style="margin-top:8px;">Langkah game dirancang satu layar dalam mode tegak agar soal, arena, dan jawaban terlihat bersamaan.</div></div></div>
+        </div>
+        <div class="strip controls">
+          <div class="answer-grid" id="gameAnswers">${cp.options.map((opt, i) => `<div class="answer-card ${app.state.game.selectedAnswer===i ? 'selected':''}" data-game-answer="${i}">${String.fromCharCode(65+i)}. ${escapeHtml(opt)}</div>`).join('')}</div>
+          <div class="cta-row">
+            <button class="btn" id="gameSubmitBtn">Konfirmasi Jawaban</button>
+            <button class="btn ghost" id="gameJumpCurrentBtn">Fokus ke pos aktif</button>
+          </div>
+          <div class="tiny muted">Kontrol: sentuh langsung pos di arena. Di laptop, klik mouse juga berfungsi. Tombol arah virtual tidak wajib karena arah sudah dapat disentuh langsung.</div>
+        </div>
+      </div>
+    `;
+    return stepShell(4, 'Eksplorasi Bermakna — Jeep Patroli Gambut', '<div class="status-chip">Membimbing penyelidikan</div>', inner, app.state.game.finished, 'Lanjut ke Penalaran & Bukti →');
+  }
+
+  function renderStep5() {
+    const r = app.state.reasoning;
+    const canDone = reasoningIsValid();
+    const inner = `
+      <div class="grid-2" data-speak>
+        <div class="panel">
+          <h3>Aturan keputusan</h3>
+          <ul>
+            <li>Total persediaan = <strong>8 unit</strong>.</li>
+            <li>Minimal <strong>1 unit</strong> harus disisakan sebagai cadangan.</li>
+            <li>Sektor dipilih bila masih memenuhi aturan cadangan.</li>
+            <li>Jika lebih dari satu sektor memenuhi aturan, pilih sektor dengan cakupan terluas.</li>
+          </ul>
+        </div>
+        <div class="panel">
+          <h3>Data dari eksplorasi</h3>
+          <div class="copy-box">
+            Sektor A = ${app.state.game.areaA ?? '...'} m², membutuhkan ${app.state.game.unitA ?? '...'} unit.<br/>
+            Sektor B = ${app.state.game.areaB ?? '...'} m², membutuhkan ${app.state.game.unitB ?? '...'} unit.
+          </div>
+        </div>
+      </div>
+      <div class="panel">
+        <h3>Tabel analisis interaktif</h3>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>Sektor</th><th>Luas (m²)</th><th>Kebutuhan Unit</th><th>Sisa Cadangan</th></tr></thead>
+            <tbody>
+              <tr>
+                <td>Sektor A</td>
+                <td><input id="reasonAreaA" type="number" value="${escapeHtml(r.selectAreaA)}" placeholder="600" /></td>
+                <td><input id="reasonUnitA" type="number" value="${escapeHtml(r.selectUnitA)}" placeholder="6" /></td>
+                <td>${app.state.game.unitA != null ? 8 - app.state.game.unitA : '?'}</td>
+              </tr>
+              <tr>
+                <td>Sektor B</td>
+                <td><input id="reasonAreaB" type="number" value="${escapeHtml(r.selectAreaB)}" placeholder="700" /></td>
+                <td><input id="reasonUnitB" type="number" value="${escapeHtml(r.selectUnitB)}" placeholder="7" /></td>
+                <td>${app.state.game.unitB != null ? 8 - app.state.game.unitB : '?'}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="row-2" style="margin-top:14px;">
+          <label>Sektor yang direkomendasikan
+            <select id="reasonRecommended">
+              <option value="">Pilih sektor</option>
+              <option value="A" ${r.recommended==='A'?'selected':''}>Sektor A</option>
+              <option value="B" ${r.recommended==='B'?'selected':''}>Sektor B</option>
+            </select>
+          </label>
+          <label>Alasan numerik singkat
+            <textarea id="reasonJustification" placeholder="Tuliskan alasan singkat berdasarkan luas, kebutuhan unit, dan cadangan.">${escapeHtml(r.justification)}</textarea>
+          </label>
+        </div>
+        <div class="cta-row" style="margin-top:12px;">
+          <button class="btn" id="reasonCheckBtn">Periksa Analisis</button>
+        </div>
+        <div id="reasonFeedback" class="tiny muted" style="margin-top:10px;">Belum diperiksa.</div>
+      </div>
+    `;
+    return stepShell(5, 'Penalaran & Bukti — Keputusan di Pos Komando', '<div class="status-chip">Membimbing penyelidikan lanjutan</div>', inner, canDone, 'Lanjut ke Produk →');
+  }
+
+  function renderStep6() {
+    const p = app.state.product;
+    const defaultRec = p.recommended || app.state.reasoning.recommended;
+    const canDone = productValid();
+    const inner = `
+      <div class="grid-2" data-speak>
+        <div class="panel">
+          <h3>Kartu rekomendasi</h3>
+          <p>Gunakan data perhitungan untuk menyusun rekomendasi penanganan lahan. Ini adalah penilaian untuk keterampilan proses.</p>
+          <div class="row">
+            <label>Sektor yang direkomendasikan
+              <select id="productRecommended">
+                <option value="">Pilih sektor</option>
+                <option value="A" ${defaultRec==='A'?'selected':''}>Sektor A</option>
+                <option value="B" ${defaultRec==='B'?'selected':''}>Sektor B</option>
+              </select>
+            </label>
+            <label>Alasan numerik (1–3 kalimat)
+              <textarea id="productReason" placeholder="Contoh: Saya merekomendasikan Sektor B karena luasnya 700 m² dan membutuhkan 7 unit, sehingga masih menyisakan 1 unit cadangan.">${escapeHtml(p.reason)}</textarea>
+            </label>
+          </div>
+          <div class="cta-row" style="margin-top:12px;">
+            <button class="btn" id="productRenderBtn">Buat Kartu Rekomendasi</button>
+            <button class="btn secondary" id="productCopyBtn">Salin Isi</button>
+            <button class="btn ghost" id="productDownloadBtn">Unduh TXT</button>
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Pratinjau produk</h3>
+          <div id="productPreview" class="cert-preview">Belum ada kartu dibuat.</div>
+          <div class="check-list" style="margin-top:12px;">
+            <label><input type="checkbox" id="productCheck1" ${app.state.stepDone[5] ? 'checked':''}/> Nama & kelas sudah benar.</label>
+            <label><input type="checkbox" id="productCheck2" ${app.state.stepDone[5] ? 'checked':''}/> Data luas dan unit sesuai hasil perhitungan.</label>
+            <label><input type="checkbox" id="productCheck3" ${app.state.stepDone[5] ? 'checked':''}/> Alasan ditulis minimal 1 kalimat utuh.</label>
+          </div>
+        </div>
+      </div>
+    `;
+    return stepShell(6, 'Produk — Kartu Rekomendasi', '<div class="status-chip">Mengembangkan & menyajikan karya</div>', inner, canDone, 'Lanjut ke Final Boss →');
+  }
+
+  function renderStep7() {
+    const boss = app.state.boss;
+    const q = boss.queue[boss.pointer];
+    const label = boss.defeated ? '<div class="status-chip">Boss tumbang</div>' : '<div class="status-chip">Mode Bandel</div>';
+    const qBlock = q ? renderBossQuestion(q, boss) : '<div class="panel">Soal belum dimuat.</div>';
+    const inner = `
+      <div class="boss-wrap" data-speak>
+        <div class="panel">
+          <div class="cta-row" style="justify-content:space-between; align-items:center;">
+            <div>
+              <strong>FINAL BOSS</strong>
+              <div class="tiny muted">Kabut Salah Hitung — jawaban benar menyerang, jawaban salah membuat boss memulihkan diri.</div>
+            </div>
+            <button class="btn secondary" id="replayBossCinematicBtn">🎬 Tonton Ulang Pengantar</button>
+          </div>
+          <div style="margin-top:10px;"><strong>HP Boss</strong></div>
+          <div class="boss-bar"><div class="boss-fill" id="bossBarFill" style="width:${(boss.hp / boss.maxHp) * 100}%"></div></div>
+        </div>
+        <div class="boss-stage">
+          <div class="boss-character"><div class="mouth"></div></div>
+        </div>
+        ${qBlock}
+      </div>
+    `;
+    return stepShell(7, 'Final Boss — Kabut Salah Hitung', label, inner, boss.defeated, 'Lanjut ke Kesimpulan & Nilai-Nilai Pembelajaran →');
+  }
+
+  function renderBossQuestion(q, boss) {
+    const isPGK = !!q.answers;
+    const selected = isPGK ? boss.multiSelected : [boss.selected];
+    return `
+      <div class="panel">
+        <div class="status-box">
+          <div class="stat"><strong>Soal ke</strong><div class="tiny muted">${boss.questionsAnswered + 1}</div></div>
+          <div class="stat"><strong>Jenis</strong><div class="tiny muted">${isPGK ? 'PG Kompleks (damage ×2)' : 'PG'}</div></div>
+          <div class="stat"><strong>Sisa HP</strong><div class="tiny muted">${boss.hp}/${boss.maxHp}</div></div>
+        </div>
+        <h3 style="margin-top:14px;">${escapeHtml(q.q)}</h3>
+        <div class="answer-grid" id="bossAnswers">${q.options.map((opt, i) => `<div class="answer-card ${selected.includes(i) ? 'selected':''}" data-boss-answer="${i}">${String.fromCharCode(65+i)}. ${escapeHtml(opt)}</div>`).join('')}</div>
+        <div class="cta-row" style="margin-top:14px;">
+          <button class="btn" id="bossAttackBtn">Serang Boss</button>
+          <button class="btn ghost" id="bossResetSelectBtn">Bersihkan Pilihan</button>
+        </div>
+      </div>
+    `;
+  }
+
+  function renderStep8() {
+    const text1 = 'Luas lahan membantu kita memahami seberapa besar wilayah yang perlu ditangani. Dengan memecah sektor menjadi dua persegi panjang, kita dapat menghitung luas total secara lebih sederhana dan akurat.';
+    const text2 = 'Perhitungan luas kemudian dihubungkan dengan kebutuhan sumber daya. Dalam simulasi ini, setiap 100 meter persegi memerlukan 1 unit perlengkapan. Karena itu, keputusan penanganan harus mempertimbangkan tidak hanya luas, tetapi juga jumlah unit yang tersedia dan cadangan yang wajib disisakan.';
+    const text3 = 'Melalui data tersebut, kita belajar bahwa keputusan numerik yang baik bersandar pada bukti. Ketika lebih dari satu pilihan memungkinkan, sektor yang dipilih sebaiknya memberikan cakupan paling luas sambil tetap mematuhi batas sumber daya. 1 pertemuan = 1 halaman catatan.';
+    const words = wordCount([text1,text2,text3].join(' '));
+    const defaultLockSecs = inFastMode() ? 2 : Math.min(300, Math.max(60, Math.ceil(words / 2.8)));
+    const lockSecs = app.state.conclusionRemaining == null ? defaultLockSecs : app.state.conclusionRemaining;
+    const inner = `
+      <div class="panel" data-speak>
+        <h3>Salin kesimpulan berikut ke buku catatan</h3>
+        <div class="copy-box" id="conclusionText">
+          <p>${text1}</p>
+          <p>${text2}</p>
+          <p>${text3}</p>
+        </div>
+        <div class="cta-row" style="margin-top:12px;">
+          <button class="btn secondary" id="copyConclusionBtn">Salin Kesimpulan</button>
+          <span class="tiny muted">Kotak centang aktif setelah waktu minimum menyalin selesai.</span>
+        </div>
+        <div class="confirm-box">
+          <div class="cta-row" style="justify-content:space-between;">
+            <label><input type="checkbox" id="conclusionCheck" ${app.state.stepDone[7] ? 'checked' : ''}/> Saya telah menyalin kesimpulan dan nilai-nilai pembelajaran.</label>
+            <span class="timer-pill" id="conclusionTimer" data-seconds="${lockSecs}">${formatSec(lockSecs)}</span>
+          </div>
+        </div>
+      </div>
+    `;
+    return stepShell(8, 'Kesimpulan & Nilai-Nilai Pembelajaran', '<div class="status-chip">Wajib semua series</div>', inner, app.state.stepDone[7], 'Lanjut ke Refleksi →');
+  }
+
+  function renderStep9() {
+    const r = app.state.reflection;
+    const inner = `
+      <div class="grid-2" data-speak>
+        <div class="panel">
+          <h3>Pulse-check</h3>
+          <p>Bagaimana perasaanmu setelah menyelesaikan misi numerasi ini?</p>
+          <div class="cta-row">
+            ${['😀','🙂','😐','🤔'].map(e => `<button class="reflect-emoji ${r.mood===e?'selected':''}" data-mood="${e}">${e}</button>`).join('')}
+          </div>
+        </div>
+        <div class="panel">
+          <h3>Refleksi terpandu</h3>
+          <div class="chip-row">
+            <div class="chip">Saya memilih sektor ...</div>
+            <div class="chip">Data yang paling membantu saya adalah ...</div>
+            <div class="chip">Hal yang perlu saya teliti lagi yaitu ...</div>
+          </div>
+          <textarea id="reflectionNote" style="margin-top:12px;" placeholder="Tulis 1–3 kalimat refleksi.">${escapeHtml(r.note)}</textarea>
+          <div class="row-2" style="margin-top:12px;">
+            <label>Nomor WhatsApp guru (opsional)
+              <input id="reflectionPhone" type="text" value="${escapeHtml(r.teacherPhone || app.state.product.teacherPhone || '')}" placeholder="08xxxxxxxxxx" />
+            </label>
+            <div class="cta-row" style="align-items:end;">
+              <button class="btn secondary" id="sendReflectionBtn">Kirim Refleksi ke Guru</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+    return stepShell(9, 'Refleksi — Pesan untuk Penjaga Berikutnya', '<div class="status-chip">Tanpa benar-salah</div>', inner, reflectionValid(), 'Lanjut ke Sertifikat →');
+  }
+
+  function renderStep10() {
+    const date = app.state.certificate.date || new Date().toISOString().slice(0,10);
+    const code = computeCertCode(app.state.identity.name || 'MURID', app.state.identity.class || 'KLS', app.state.identity.school || DEFAULT_SCHOOL, date.replaceAll('-',''));
+    app.state.certificate.date = date;
+    app.state.certificate.code = code;
+    saveState();
+    const rekap = buildRecapText();
+    const inner = `
+      <div class="grid-2" data-speak>
+        <div class="panel">
+          <h3>Sertifikat Penjaga Gambut</h3>
+          <p>Murid yang hadir dan menyelesaikan perjalanan belajar berhak memperoleh sertifikat. Skor disembunyikan; yang dicantumkan adalah identitas, TP, tanggal, dan kode verifikasi.</p>
+          <div class="cta-row">
+            <button class="btn" id="downloadCertBtn">Unduh Sertifikat PDF</button>
+            <button class="btn secondary" id="copyRecapBtn">Salin Rekap</button>
+            <button class="btn ghost" id="sendRecapBtn">Kirim Rekap via WA</button>
+          </div>
+          <div class="row-2" style="margin-top:12px;">
+            <label>Nomor WhatsApp guru
+              <input id="recapPhone" type="text" value="${escapeHtml(app.state.product.teacherPhone || app.state.reflection.teacherPhone || '')}" placeholder="08xxxxxxxxxx" />
+            </label>
+            <div class="copy-box tiny">Kode verifikasi:<br/><strong>${code}</strong></div>
+          </div>
+          <div class="copy-box tiny" style="margin-top:12px;">Jalur utama: unduh PDF. Jalur cadangan: jika unduh tidak berhasil, berkas akan dibuka pada tab baru untuk disimpan manual.</div>
+        </div>
+        <div class="panel">
+          <h3>Pratinjau ringkas</h3>
+          <div class="cert-preview">
+            <strong>${escapeHtml(app.state.identity.name || 'Nama murid')}</strong><br/>
+            ${escapeHtml(app.state.identity.class || '-') } • ${escapeHtml(app.state.identity.school || DEFAULT_SCHOOL)}<br/><br/>
+            Telah menyelesaikan Perjalanan Belajar <strong>Misi Gambut: Menyelamatkan Lahan</strong>.<br/><br/>
+            <strong>TP</strong><br/>
+            1. Menentukan luas sektor lahan dari denah.<br/>
+            2. Membandingkan dua alternatif berdasarkan kebutuhan sumber daya.<br/>
+            3. Menyusun rekomendasi berbasis data.<br/><br/>
+            Tanggal: ${formatDateDisplay(date)}<br/>
+            Kode: ${code}
+          </div>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:16px;">
+        <h3>Rekap siap kirim</h3>
+        <textarea readonly id="recapText">${escapeHtml(rekap)}</textarea>
+      </div>
+      <div class="footer-nav">
+        <button class="btn ghost" id="restartCourseBtn">🔁 Ulangi Langkah Belajar</button>
+      </div>
+    `;
+    return stepShell(10, 'Sertifikat — Penjaga Gambut', '<div class="status-chip">Akhir perjalanan</div>', inner, false, '');
+  }
+
+  function renderGate(baseKey, items, confirmLabel, mode='hand') {
+    const gateState = app.state.gates[baseKey] || { done:{}, remaining:{}, active:null, confirmed:false };
+    const progress = items.filter(it => gateState.done[it.id]).length;
+    const confirmEnabled = progress === items.length;
+    if (mode === 'stage') {
+      const activeId = gateState.active || items[0].id;
+      const activeItem = items.find(it => it.id === activeId) || items[0];
+      return `<div class="panel">
+        <div class="reading-room" data-gate-root="${baseKey}">
+          <div class="reading-menu">
+            <div><strong>Ruang Baca</strong></div>
+            <div class="tiny muted" style="margin:4px 0 12px;">${progress}/${items.length} ikon selesai dibaca</div>
+            <div class="progress-strip"><div style="width:${progress/items.length*100}%"></div></div>
+            <div class="reading-menu-list" style="margin-top:12px;">${items.map((it, idx) => renderMiniGate(baseKey, it, idx, items, gateState)).join('')}</div>
+            <div class="confirm-box" style="margin-top:auto;">
+              <label><input type="checkbox" data-gate-confirm="${baseKey}" ${gateState.confirmed ? 'checked':''} ${confirmEnabled ? '' : 'disabled'}/> ${escapeHtml(confirmLabel)}</label>
+            </div>
+          </div>
+          <div class="reading-panel">
+            ${renderGatePanelContent(baseKey, activeItem, items, gateState)}
+          </div>
+        </div>
+      </div>`;
+    }
+    return `<div class="panel"><div class="gate-grid" data-gate-root="${baseKey}">${items.map((it, idx) => renderAccordionGate(baseKey, it, idx, items, gateState)).join('')}</div>
+      <div class="confirm-box"><label><input type="checkbox" data-gate-confirm="${baseKey}" ${gateState.confirmed ? 'checked':''} ${confirmEnabled ? '' : 'disabled'}/> ${escapeHtml(confirmLabel)}</label></div>
+    </div>`;
+  }
+
+  function renderMiniGate(baseKey, item, idx, items, gateState) {
+    const ready = idx === 0 || gateState.done[items[idx-1].id];
+    const cls = `gate-mini ${gateState.active===item.id ? 'current':''} ${gateState.done[item.id] ? 'done':''} ${ready ? '' : 'locked'}`;
+    const status = gateState.done[item.id] ? '✅ selesai' : gateState.active===item.id ? '⏳ sedang dibaca' : ready ? '▶ giliran' : '🔒 terkunci';
+    return `<div class="${cls}" data-gate-open="${baseKey}|${item.id}"><div style="font-weight:800;">${idx+1}</div><div><strong>${escapeHtml(item.title)}</strong><div class="tiny muted">${status}</div></div></div>`;
+  }
+
+  function renderGatePanelContent(baseKey, item, items, gateState) {
+    const idx = items.findIndex(it => it.id === item.id);
+    const remaining = getRemaining(baseKey, item);
+    const words = wordCount(item.text);
+    const nextLabel = idx === items.length - 1 ? 'Selesai Membaca' : `Lanjut ke ${items[idx+1].title} →`;
+    const canNext = gateState.done[item.id];
+    return `<div style="display:flex; justify-content:space-between; gap:12px; align-items:center; margin-bottom:8px;"><div><strong>${escapeHtml(item.title)}</strong></div><button class="icon-btn" data-gate-close-panel="${baseKey}">✕</button></div>
+      <div class="cta-row" style="justify-content:space-between; margin-bottom:8px;"><span class="timer-pill" data-gate-timer="${baseKey}|${item.id}">${gateState.done[item.id] ? '✅ selesai' : formatSec(remaining)}</span><span class="tiny muted">${words} kata</span></div>
+      <div class="reading-content"><p>${escapeHtml(item.text)}</p></div>
+      <div class="gate-action"><button class="btn ${canNext ? '' : 'locked'}" ${canNext ? '' : 'disabled'} data-gate-next="${baseKey}|${item.id}">${escapeHtml(nextLabel)}</button></div>`;
+  }
+
+  function renderAccordionGate(baseKey, item, idx, items, gateState) {
+    const isOpen = gateState.active === item.id;
+    const ready = idx === 0 || gateState.done[items[idx-1].id];
+    const words = wordCount(item.text);
+    const remaining = getRemaining(baseKey, item);
+    const canNext = gateState.done[item.id];
+    const nextLabel = idx === items.length - 1 ? 'Selesai Membaca' : `Lanjut ke ${items[idx+1].title} →`;
+    return `<div class="gate-card ${isOpen ? 'open' : ''}" data-gate-card="${baseKey}|${item.id}">
+      <div class="gate-top" data-gate-open="${baseKey}|${item.id}"><div><strong>${escapeHtml(item.title)}</strong><div class="tiny muted">${ready ? (gateState.done[item.id] ? '✅ selesai' : isOpen ? '⏳ sedang dibaca' : '▶ giliran') : '🔒 terkunci'}</div></div><div class="timer-pill" data-gate-timer="${baseKey}|${item.id}">${gateState.done[item.id] ? '✅ selesai' : ready ? formatSec(remaining) : '🔒 terkunci'}</div></div>
+      <div class="gate-body"><div class="tiny muted">${words} kata</div><p>${escapeHtml(item.text)}</p><div class="gate-action"><button class="btn ${canNext ? '' : 'locked'}" ${canNext ? '' : 'disabled'} data-gate-next="${baseKey}|${item.id}">${escapeHtml(nextLabel)}</button></div></div>
+    </div>`;
+  }
+
+  function getRemaining(baseKey, item) {
+    app.state.gates[baseKey] ??= { done:{}, remaining:{}, active:null, confirmed:false };
+    const gs = app.state.gates[baseKey];
+    if (gs.remaining[item.id] == null) gs.remaining[item.id] = gateTime(wordCount(item.text));
+    return gs.remaining[item.id];
+  }
+
+  function bindStepEvents() {
+    qsa('[data-next-step]').forEach(btn => btn.onclick = () => goToStep(Number(btn.dataset.nextStep)));
+    qsa('[data-back-step]').forEach(btn => btn.onclick = () => goToStep(Number(btn.dataset.backStep)));
+    qsa('[data-denah-show]').forEach(btn => btn.onclick = handleDenahExample);
+    qsa('[data-gate-open]').forEach(node => node.onclick = () => openGate(node.dataset.gateOpen));
+    qsa('[data-gate-next]').forEach(node => node.onclick = () => gateNext(node.dataset.gateNext));
+    qsa('[data-gate-close-panel]').forEach(node => node.onclick = () => closeGatePanel(node.dataset.gateClosePanel));
+    qsa('[data-gate-confirm]').forEach(chk => chk.onchange = () => handleGateConfirm(chk));
+    qs('#replayTpCinematicBtn')?.addEventListener('click', () => startCinematic('tp', true));
+    qs('#replayBossCinematicBtn')?.addEventListener('click', () => startCinematic('boss', true));
+    qs('#reasonCheckBtn')?.addEventListener('click', checkReasoning);
+    qs('#gameSubmitBtn')?.addEventListener('click', submitGameAnswer);
+    qs('#gameJumpCurrentBtn')?.addEventListener('click', () => { if (app.game) { const cp = gameCheckpoints[app.state.game.checkpointIndex]; app.game.target = { x:cp.x, y:cp.y }; } });
+    qsa('[data-game-answer]').forEach(card => card.onclick = () => selectGameAnswer(Number(card.dataset.gameAnswer)));
+    qs('#productRenderBtn')?.addEventListener('click', renderProductPreview);
+    qs('#productCopyBtn')?.addEventListener('click', copyProductText);
+    qs('#productDownloadBtn')?.addEventListener('click', downloadProductText);
+    qs('#bossAttackBtn')?.addEventListener('click', attackBoss);
+    qs('#bossResetSelectBtn')?.addEventListener('click', () => { app.state.boss.selected = null; app.state.boss.multiSelected = []; saveState(); renderCourse(); goToStep(7, false); });
+    qsa('[data-boss-answer]').forEach(card => card.onclick = () => selectBossAnswer(Number(card.dataset.bossAnswer)));
+    qs('#copyConclusionBtn')?.addEventListener('click', () => copyText(qs('#conclusionText').innerText, 'Kesimpulan disalin.'));
+    qs('#conclusionCheck')?.addEventListener('change', handleConclusionCheck);
+    qsa('[data-mood]').forEach(btn => btn.onclick = () => selectMood(btn.dataset.mood));
+    qs('#sendReflectionBtn')?.addEventListener('click', sendReflectionWA);
+    qs('#downloadCertBtn')?.addEventListener('click', downloadCertificate);
+    qs('#copyRecapBtn')?.addEventListener('click', () => copyText(buildRecapText(), 'Rekap disalin.'));
+    qs('#sendRecapBtn')?.addEventListener('click', sendRecapWA);
+    qs('#restartCourseBtn')?.addEventListener('click', handleRestartCourse);
+  }
+
+  function restoreInputs() {
+    const r = app.state.reasoning;
+    qs('#reasonAreaA') && (qs('#reasonAreaA').value = r.selectAreaA);
+    qs('#reasonAreaB') && (qs('#reasonAreaB').value = r.selectAreaB);
+    qs('#reasonUnitA') && (qs('#reasonUnitA').value = r.selectUnitA);
+    qs('#reasonUnitB') && (qs('#reasonUnitB').value = r.selectUnitB);
+    qs('#reasonRecommended') && (qs('#reasonRecommended').value = r.recommended);
+    qs('#reasonJustification') && (qs('#reasonJustification').value = r.justification);
+    qs('#productRecommended') && (qs('#productRecommended').value = app.state.product.recommended || app.state.reasoning.recommended || '');
+    qs('#productReason') && (qs('#productReason').value = app.state.product.reason);
+    qs('#reflectionNote') && (qs('#reflectionNote').value = app.state.reflection.note);
+    qs('#reflectionPhone') && (qs('#reflectionPhone').value = app.state.reflection.teacherPhone || app.state.product.teacherPhone || '');
+    qs('#recapPhone') && (qs('#recapPhone').value = app.state.product.teacherPhone || app.state.reflection.teacherPhone || '');
+    updateProductPreview();
+  }
+
+  function openGate(payload) {
+    const [baseKey, itemId] = payload.split('|');
+    const gateRoot = gateDataset(baseKey);
+    const idx = gateRoot.items.findIndex(it => it.id === itemId);
+    const gs = app.state.gates[baseKey] ??= { done:{}, remaining:{}, active:null, confirmed:false };
+    const ready = idx === 0 || gs.done[gateRoot.items[idx-1].id];
+    if (!ready) { showToast(`Baca ${gateRoot.items[idx-1].title} terlebih dahulu.`); return; }
+    gs.active = itemId;
+    saveState();
+    renderCourse();
+    goToStep(gateRoot.step, false);
+    startGateTimer(baseKey, itemId, gateRoot);
+  }
+
+  function gateDataset(baseKey) {
+    const map = {
+      step2tp: { step:2, items:[
+        { id:'tp1', title:'TP 1 — Menghitung luas', text:'Murid mampu menentukan luas bagian lahan gambut yang perlu ditangani berdasarkan denah berbentuk persegi panjang atau gabungan dua persegi panjang menggunakan ukuran yang tersedia.' },
+        { id:'tp2', title:'TP 2 — Membandingkan alternatif', text:'Murid mampu membandingkan dua alternatif wilayah penanganan berdasarkan hasil perhitungan luas dan kebutuhan sumber daya untuk menentukan wilayah yang dapat ditangani dengan persediaan yang tersedia.' },
+        { id:'tp3', title:'TP 3 — Menyusun rekomendasi', text:'Murid mampu menyusun rekomendasi penanganan lahan sederhana menggunakan tabel perhitungan dan alasan numerik yang dapat dipertanggungjawabkan.' }
+      ]},
+      step3act: { step:3, items:[
+        { id:'act1', title:'Konsep 1 — Luas bidang', text:'Luas persegi panjang dihitung dengan mengalikan panjang dan lebar. Jika dua bidang tidak bertumpang tindih, luas total diperoleh dengan menjumlahkan luas masing-masing bidang.' },
+        { id:'act2', title:'Konsep 2 — Kebutuhan unit', text:'Dalam simulasi ini, setiap 100 meter persegi memerlukan 1 unit perlengkapan. Jika luas diketahui, kebutuhan unit dapat dihitung dengan membagi luas oleh 100.' },
+        { id:'act3', title:'Konsep 3 — Memilih alternatif', text:'Keputusan terbaik tidak hanya melihat luas terbesar, tetapi juga memastikan kebutuhan unit masih sesuai dengan persediaan dan aturan menyisakan cadangan.' }
+      ]}
+    };
+    return map[baseKey];
+  }
+
+  function closeGatePanel(baseKey) {
+    const gs = app.state.gates[baseKey]; if (!gs) return;
+    gs.active = null;
+    saveState(); renderCourse();
+    const data = gateDataset(baseKey);
+    if (data) goToStep(data.step, false);
+  }
+
+  function startGateTimer(baseKey, itemId, gateRoot) {
+    const gs = app.state.gates[baseKey]; if (!gs || gs.done[itemId]) return;
+    clearInterval(app.gateTimers[baseKey + itemId]);
+    app.gateTimers[baseKey + itemId] = setInterval(() => {
+      const activeVisible = document.visibilityState === 'visible';
+      const stillActive = app.state.gates[baseKey]?.active === itemId;
+      if (!activeVisible || !stillActive) return;
+      const rem = app.state.gates[baseKey].remaining[itemId];
+      if (rem > 0) {
+        app.state.gates[baseKey].remaining[itemId] = rem - 1;
+        saveState();
+        updateGateTimerEl(baseKey, itemId);
+      }
+      if (app.state.gates[baseKey].remaining[itemId] <= 0) {
+        clearInterval(app.gateTimers[baseKey + itemId]);
+        app.state.gates[baseKey].done[itemId] = true;
+        saveState();
+        renderCourse();
+        goToStep(gateRoot.step, false);
+      }
+    }, 1000);
+  }
+
+  function updateGateTimerEl(baseKey, itemId) {
+    const timer = qs(`[data-gate-timer="${baseKey}|${itemId}"]`);
+    if (!timer) return;
+    const gs = app.state.gates[baseKey];
+    const rem = gs.remaining[itemId];
+    timer.textContent = rem <= 0 ? '✅ selesai' : formatSec(rem);
+  }
+
+  function gateNext(payload) {
+    const [baseKey, itemId] = payload.split('|');
+    const data = gateDataset(baseKey);
+    const gs = app.state.gates[baseKey];
+    if (!gs?.done[itemId]) return;
+    const idx = data.items.findIndex(it => it.id === itemId);
+    if (idx < data.items.length - 1) {
+      gs.active = data.items[idx+1].id;
+      saveState(); renderCourse(); goToStep(data.step, false); startGateTimer(baseKey, gs.active, data); sound('tap');
+    } else {
+      gs.active = null;
+      saveState(); renderCourse(); goToStep(data.step, false); sound('tap');
+    }
+  }
+
+  function handleGateConfirm(chk) {
+    const baseKey = chk.dataset.gateConfirm;
+    const data = gateDataset(baseKey);
+    const gs = app.state.gates[baseKey] ??= { done:{}, remaining:{}, active:null, confirmed:false };
+    const doneAll = data.items.every(it => gs.done[it.id]);
+    if (!doneAll) { chk.checked = false; showToast('Selesaikan semua bacaan terlebih dahulu.'); return; }
+    gs.confirmed = chk.checked;
+    if (baseKey === 'step2tp' && chk.checked) markStepDone(2);
+    if (baseKey === 'step3act' && chk.checked) markStepDone(3);
+    saveState(); sound('tap'); renderMenu();
+  }
+
+  function handleDenahExample(e) {
+    const type = e.currentTarget.dataset.denahShow;
+    const out = qs('#denahResult'); if (!out) return;
+    const map = {
+      a: 'Sektor A = (20 × 20) + (10 × 20) = 400 + 200 = 600 m².',
+      b: 'Sektor B = (25 × 20) + (10 × 20) = 500 + 200 = 700 m².',
+      u: 'Kebutuhan unit: Sektor A = 600 ÷ 100 = 6 unit, Sektor B = 700 ÷ 100 = 7 unit.'
+    };
+    out.textContent = map[type];
+    sound('tap');
+  }
+
+  function selectGameAnswer(idx) {
+    app.state.game.selectedAnswer = idx; saveState(); renderCourse(); goToStep(4, false);
+  }
+
+  function initGame() {
+    const canvas = qs('#gameCanvas');
+    if (!canvas) return;
+    const wrap = canvas.parentElement;
+    const ctx = canvas.getContext('2d');
+    const dpr = Math.max(1, window.devicePixelRatio || 1);
+    const rect = wrap.getBoundingClientRect();
+    canvas.width = rect.width * dpr;
+    canvas.height = rect.height * dpr;
+    ctx.setTransform(dpr,0,0,dpr,0,0);
+
+    const game = app.game = app.game || {
+      ctx, canvas,
+      jeep: { x: rect.width * 0.14, y: rect.height * 0.78 },
+      target: null,
+      rect
+    };
+    game.ctx = ctx; game.canvas = canvas; game.rect = rect;
+    if (!game.target) {
+      const cp = gameCheckpoints[app.state.game.checkpointIndex];
+      game.target = { x: cp.x, y: cp.y };
+    }
+
+    canvas.onclick = (ev) => {
+      const r = canvas.getBoundingClientRect();
+      const x = (ev.clientX - r.left) / r.width;
+      const y = (ev.clientY - r.top) / r.height;
+      const hit = gameCheckpoints.findIndex(cp => Math.hypot(cp.x-x, cp.y-y) < 0.08);
+      if (hit >= 0) {
+        app.state.game.checkpointIndex = hit;
+        app.state.game.selectedAnswer = null;
+        saveState();
+        renderCourse();
+        goToStep(4, false);
+        app.game.target = { x: gameCheckpoints[hit].x, y: gameCheckpoints[hit].y };
+        sound('tap');
+      }
+    };
+    animateGame();
+  }
+
+  function animateGame() {
+    if (!app.game) return;
+    const { ctx, canvas, rect, jeep } = app.game;
+    if (app.currentStep !== 4) return;
+    const w = rect.width, h = rect.height;
+    ctx.clearRect(0,0,w,h);
+    drawGameScene(ctx, w, h, jeep, app.game.target);
+    requestAnimationFrame(() => {
+      if (app.currentStep !== 4) return;
+      if (app.game.target) {
+        const tx = app.game.target.x * w;
+        const ty = app.game.target.y * h;
+        jeep.x += (tx - jeep.x) * 0.08;
+        jeep.y += (ty - jeep.y) * 0.08;
+      }
+      animateGame();
+    });
+  }
+
+  function drawGameScene(ctx, w, h, jeep, target) {
+    // sky & mist
+    const g = ctx.createLinearGradient(0,0,0,h); g.addColorStop(0, '#dff0e5'); g.addColorStop(.3, '#9bc6a7'); g.addColorStop(1, '#315845');
+    if (app.state.theme === 'dark') { const gd = ctx.createLinearGradient(0,0,0,h); gd.addColorStop(0,'#11231e'); gd.addColorStop(.35,'#1d4434'); gd.addColorStop(1,'#173226'); ctx.fillStyle = gd; }
+    else ctx.fillStyle = g;
+    ctx.fillRect(0,0,w,h);
+    ctx.globalAlpha = 0.22; ctx.fillStyle = '#fff'; ellipseFill(ctx, w*0.28, h*0.22, 150, 42); ellipseFill(ctx, w*0.6, h*0.16, 180, 52); ctx.globalAlpha = 1;
+    // trees background
+    for(let i=0;i<11;i++) drawTree(ctx, (i*90)% (w+60)-30, h*0.52 + (i%3)*10, .9);
+    // water patches
+    ctx.fillStyle = 'rgba(44,84,73,.34)'; ellipseFill(ctx, w*0.78, h*0.78, 160, 46); ellipseFill(ctx, w*0.42, h*0.68, 110, 34);
+    // boardwalk path
+    ctx.strokeStyle = '#8d643c'; ctx.lineWidth = 16; ctx.lineCap = 'round';
+    ctx.beginPath(); ctx.moveTo(w*0.12,h*0.8); ctx.quadraticCurveTo(w*0.28,h*0.75,w*0.36,h*0.64); ctx.quadraticCurveTo(w*0.45,h*0.54,w*0.6,h*0.46); ctx.quadraticCurveTo(w*0.72,h*0.56,w*0.82,h*0.68); ctx.stroke();
+    ctx.strokeStyle = '#5f3c20'; ctx.lineWidth = 3; for (let i=0;i<20;i++){ ctx.beginPath(); const x = w*0.12 + i*35; const y = h*0.8 - i*8.2 + Math.sin(i)*5; ctx.moveTo(x,y-10); ctx.lineTo(x+10,y+10); ctx.stroke(); }
+    // checkpoints
+    gameCheckpoints.forEach((cp, idx) => {
+      const x = cp.x * w, y = cp.y * h;
+      const active = idx === app.state.game.checkpointIndex;
+      ctx.save();
+      ctx.fillStyle = active ? 'rgba(255,242,181,.95)' : 'rgba(255,255,255,.92)';
+      ctx.strokeStyle = active ? '#f0a935' : '#315845'; ctx.lineWidth = 4;
+      ellipseFill(ctx, x, y+20, 34, 10, 'rgba(0,0,0,.18)');
+      drawPin(ctx, x, y, active ? '#f2a33b' : '#2f72ff');
+      ctx.font = '700 14px Inter, Arial'; ctx.fillStyle = '#173126'; ctx.textAlign = 'center'; ctx.fillText(String(idx+1), x, y+5);
+      ctx.restore();
+    });
+    // Jeep
+    drawJeep(ctx, jeep.x, jeep.y);
+    // target glow
+    if (target) { ctx.globalAlpha = .45; ellipseFill(ctx, target.x*w, target.y*h+20, 54, 16, '#ffe69b'); ctx.globalAlpha = 1; }
+  }
+
+  function ellipseFill(ctx, x,y,rx,ry,color){ ctx.save(); if(color) ctx.fillStyle=color; ctx.beginPath(); ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2); ctx.fill(); ctx.restore(); }
+  function drawTree(ctx,x,y,s=1){ ctx.save(); ctx.translate(x,y); ctx.fillStyle='#1b4a33'; ctx.beginPath(); ctx.moveTo(0,-90*s); ctx.lineTo(-36*s,0); ctx.lineTo(36*s,0); ctx.closePath(); ctx.fill(); ctx.fillStyle='#234735'; ctx.beginPath(); ctx.moveTo(0,-56*s); ctx.lineTo(-28*s,26*s); ctx.lineTo(28*s,26*s); ctx.closePath(); ctx.fill(); ctx.fillStyle='#5b4125'; ctx.fillRect(-7*s,0,14*s,30*s); ctx.restore(); }
+  function drawPin(ctx,x,y,color){ ctx.save(); ctx.fillStyle=color; ctx.beginPath(); ctx.moveTo(x, y-24); ctx.arc(x, y-24, 18, Math.PI, 0); ctx.lineTo(x+10, y+2); ctx.quadraticCurveTo(x, y+20, x-10, y+2); ctx.closePath(); ctx.fill(); ctx.fillStyle='rgba(255,255,255,.28)'; ctx.beginPath(); ctx.arc(x-5,y-30,5,0,Math.PI*2); ctx.fill(); ctx.restore(); }
+  function drawJeep(ctx,x,y){ ctx.save(); ctx.translate(x,y); ellipseFill(ctx, 0, 20, 40, 12, 'rgba(0,0,0,.2)'); const grd = ctx.createLinearGradient(-34,-18,34,20); grd.addColorStop(0,'#4e755f'); grd.addColorStop(1,'#23372c'); ctx.fillStyle = grd; roundRectPath(ctx,-34,-18,68,32,12); ctx.fill(); ctx.fillStyle='rgba(255,255,255,.18)'; roundRectPath(ctx,-20,-14,24,10,5); ctx.fill(); ctx.fillStyle='#101816'; ctx.beginPath(); ctx.arc(-18,18,10,0,Math.PI*2); ctx.arc(18,18,10,0,Math.PI*2); ctx.fill(); ctx.fillStyle='#68746f'; ctx.beginPath(); ctx.arc(-18,18,5,0,Math.PI*2); ctx.arc(18,18,5,0,Math.PI*2); ctx.fill(); ctx.restore(); }
+  function roundRectPath(ctx,x,y,w,h,r){ ctx.beginPath(); ctx.moveTo(x+r,y); ctx.arcTo(x+w,y,x+w,y+h,r); ctx.arcTo(x+w,y+h,x,y+h,r); ctx.arcTo(x,y+h,x,y,r); ctx.arcTo(x,y,x+w,y,r); ctx.closePath(); }
+
+  function submitGameAnswer() {
+    const cp = gameCheckpoints[app.state.game.checkpointIndex];
+    if (app.state.game.selectedAnswer == null) { showToast('Pilih jawaban terlebih dahulu.'); return; }
+    const ok = app.state.game.selectedAnswer === cp.correct || app.state.mode === 'ez';
+    if (ok) {
+      app.state.game.answered[cp.id] = true;
+      Object.assign(app.state.game, cp.reward);
+      sound('benar');
+      showFeedback('Jawaban benar!', `<p>${escapeHtml(cp.explain)}</p>`, () => {
+        if (app.state.game.checkpointIndex < gameCheckpoints.length - 1) {
+          app.state.game.checkpointIndex += 1;
+          app.game && (app.game.target = { x: gameCheckpoints[app.state.game.checkpointIndex].x, y: gameCheckpoints[app.state.game.checkpointIndex].y });
+        }
+        app.state.game.selectedAnswer = null;
+        if (Object.keys(app.state.game.answered).length === gameCheckpoints.length) {
+          app.state.game.finished = true;
+          markStepDone(4);
+          sound('mission');
+        }
+        saveState(); renderCourse(); goToStep(4, false);
+      });
+    } else {
+      sound('salah');
+      showFeedback('Jawaban belum tepat', `<p>${escapeHtml(cp.explain)}</p><p>Perhatikan kembali ukuran bidang pada sektor ini. Kamu boleh mencoba lagi tanpa mengulang seluruh perjalanan.</p>`, () => {});
+    }
+  }
+
+  function checkReasoning() {
+    app.state.reasoning.selectAreaA = qs('#reasonAreaA')?.value || '';
+    app.state.reasoning.selectAreaB = qs('#reasonAreaB')?.value || '';
+    app.state.reasoning.selectUnitA = qs('#reasonUnitA')?.value || '';
+    app.state.reasoning.selectUnitB = qs('#reasonUnitB')?.value || '';
+    app.state.reasoning.recommended = qs('#reasonRecommended')?.value || '';
+    app.state.reasoning.justification = qs('#reasonJustification')?.value || '';
+    saveState();
+    const good = reasoningIsValid();
+    const fb = qs('#reasonFeedback');
+    if (!fb) return;
+    if (good || app.state.mode === 'ez') {
+      fb.innerHTML = '<strong style="color:var(--success)">Analisis tepat.</strong> Sektor B memenuhi aturan cadangan dan memberi cakupan terluas.';
+      markStepDone(5); sound('benar'); renderCourse(); goToStep(5, false);
+    } else {
+      fb.innerHTML = '<strong style="color:var(--danger)">Analisis belum tepat.</strong> Periksa kembali luas, kebutuhan unit, dan pilihan sektor yang paling luas tetapi tetap menyisakan 1 unit cadangan.';
+      sound('salah');
+    }
+    renderMenu();
+  }
+  function reasoningIsValid() {
+    const r = app.state.reasoning;
+    return String(r.selectAreaA) === '600' && String(r.selectAreaB) === '700' && String(r.selectUnitA) === '6' && String(r.selectUnitB) === '7' && r.recommended === 'B' && (r.justification || '').trim().length >= 18;
+  }
+
+  function renderProductPreview() {
+    app.state.product.recommended = qs('#productRecommended')?.value || '';
+    app.state.product.reason = qs('#productReason')?.value || '';
+    saveState();
+    updateProductPreview();
+    if (productValid() || app.state.mode === 'ez') {
+      markStepDone(6); sound('benar'); renderMenu(); renderCourse(); goToStep(6, false); showToast('Kartu rekomendasi berhasil dibuat.');
+    } else {
+      sound('tap'); showToast('Lengkapi sektor dan alasan numerik terlebih dahulu.');
+    }
+  }
+
+  function updateProductPreview() {
+    const box = qs('#productPreview'); if (!box) return;
+    const r = app.state.product.recommended || '-';
+    const sectorText = r === 'A' ? 'Sektor A' : r === 'B' ? 'Sektor B' : '-';
+    const reason = app.state.product.reason || 'Belum ada alasan ditulis.';
+    box.innerHTML = `
+      <strong>${escapeHtml(app.state.identity.name || 'Nama murid')}</strong><br/>
+      ${escapeHtml(app.state.identity.class || '-')} • ${escapeHtml(app.state.identity.school || DEFAULT_SCHOOL)}<br/><br/>
+      <strong>Rekomendasi Penanganan:</strong> ${sectorText}<br/>
+      <strong>Data Numerik:</strong><br/>
+      Sektor A = ${app.state.game.areaA ?? '...'} m² → ${app.state.game.unitA ?? '...'} unit<br/>
+      Sektor B = ${app.state.game.areaB ?? '...'} m² → ${app.state.game.unitB ?? '...'} unit<br/><br/>
+      <strong>Alasan:</strong><br/>
+      ${escapeHtml(reason)}
+    `;
+  }
+  function productValid() {
+    const hasChecks = ['#productCheck1','#productCheck2','#productCheck3'].every(sel => qs(sel)?.checked || false);
+    return !!(app.state.product.recommended && (app.state.product.reason || '').trim().length >= 30 && hasChecks);
+  }
+  function copyProductText() {
+    copyText(qs('#productPreview')?.innerText || '', 'Isi kartu rekomendasi disalin.');
+  }
+  function downloadProductText() {
+    const text = qs('#productPreview')?.innerText || '';
+    downloadBlob(new Blob([text], {type:'text/plain'}), 'kartu_rekomendasi_misi_gambut.txt');
+  }
+
+  function makeBossQueue() {
+    const pg = [...bossBank.pg].sort(() => Math.random()-0.5).slice(0,8);
+    const pgk = [...bossBank.pgk].sort(() => Math.random()-0.5).slice(0,2);
+    return [...pg, ...pgk].sort(() => Math.random()-0.5);
+  }
+  function initBoss() {
+    if (!app.state.boss.queue.length || app.state.boss.pointer >= app.state.boss.queue.length && !app.state.boss.defeated) {
+      app.state.boss.queue = makeBossQueue();
+      app.state.boss.pointer = 0; app.state.boss.selected = null; app.state.boss.multiSelected = [];
+      saveState();
+    }
+  }
+  function selectBossAnswer(idx) {
+    const q = app.state.boss.queue[app.state.boss.pointer]; if (!q) return;
+    if (q.answers) {
+      const arr = app.state.boss.multiSelected;
+      const i = arr.indexOf(idx); if (i>=0) arr.splice(i,1); else arr.push(idx);
+    } else app.state.boss.selected = idx;
+    saveState(); renderCourse(); goToStep(7, false);
+  }
+  function attackBoss() {
+    const b = app.state.boss; const q = b.queue[b.pointer]; if (!q) return;
+    let correct = false; let damage = 1;
+    if (q.answers) {
+      const sel = [...b.multiSelected].sort((a,b)=>a-b); const ans = [...q.answers].sort((a,b)=>a-b);
+      correct = JSON.stringify(sel) === JSON.stringify(ans) || app.state.mode === 'ez'; damage = 2;
+      if (sel.length === 0 && app.state.mode !== 'ez') { showToast('Pilih minimal satu jawaban.'); return; }
+    } else {
+      if (b.selected == null && app.state.mode !== 'ez') { showToast('Pilih jawaban terlebih dahulu.'); return; }
+      correct = b.selected === q.a || app.state.mode === 'ez'; damage = 1;
+    }
+    b.questionsAnswered += 1;
+    if (correct) {
+      b.hp = Math.max(0, b.hp - damage);
+      sound(damage === 2 ? 'mission' : 'bossHit');
+    } else {
+      b.hp = Math.min(b.maxHp, b.hp + 1);
+      sound('salah');
+    }
+    if (b.hp <= 0) {
+      b.defeated = true;
+      markStepDone(7); sound('bossDown');
+      saveState(); renderCourse(); goToStep(7,false);
+      showFeedback('Boss tumbang!', '<p>Kabut Salah Hitung berhasil kamu kalahkan. Perhitungan yang teliti membuat keputusanmu semakin kuat.</p>', () => {});
+      return;
+    }
+    b.pointer += 1;
+    if (b.pointer >= b.queue.length) {
+      b.queue = makeBossQueue(); b.pointer = 0;
+    }
+    b.selected = null; b.multiSelected = [];
+    saveState(); renderCourse(); goToStep(7, false);
+    showToast(correct ? 'Serangan berhasil mengenai boss!' : 'Boss memulihkan diri. Cermati soal berikutnya.');
+  }
+
+  function startConclusionLockIfNeeded() {
+    clearInterval(app.conclusionTimer);
+    const timerEl = qs('#conclusionTimer'); const check = qs('#conclusionCheck'); if (!timerEl || !check) return;
+    let secs = app.state.conclusionRemaining == null ? Number(timerEl.dataset.seconds) : app.state.conclusionRemaining;
+    app.state.conclusionRemaining = secs;
+    if (app.state.stepDone[7]) { check.disabled = false; timerEl.textContent = '✅ selesai'; return; }
+    check.disabled = true;
+    app.conclusionTimer = setInterval(() => {
+      if (document.visibilityState !== 'visible' || app.currentStep !== 8) return;
+      secs = Math.max(0, secs - 1);
+      app.state.conclusionRemaining = secs;
+      timerEl.dataset.seconds = secs;
+      timerEl.textContent = secs <= 0 ? '✅ selesai' : formatSec(secs);
+      if (secs % 5 === 0 || secs <= 3) saveState();
+      if (secs <= 0) {
+        clearInterval(app.conclusionTimer); check.disabled = false; saveState(); renderCourse(); goToStep(8, false);
+      }
+    }, 1000);
+  }
+  function handleConclusionCheck() {
+    const chk = qs('#conclusionCheck'); if (!chk) return;
+    if (chk.disabled) { chk.checked = false; return; }
+    if (chk.checked) { app.state.conclusionRemaining = 0; markStepDone(8); sound('tap'); renderMenu(); renderCourse(); goToStep(8, false); }
+  }
+
+  function selectMood(mood) { app.state.reflection.mood = mood; saveState(); renderCourse(); goToStep(9, false); }
+  function reflectionValid() {
+    return !!(app.state.reflection.mood && (app.state.reflection.note || '').trim().length >= 18);
+  }
+  function sendReflectionWA() {
+    const note = qs('#reflectionNote')?.value || '';
+    const phone = cleanPhone(qs('#reflectionPhone')?.value || '');
+    app.state.reflection.note = note; app.state.reflection.teacherPhone = phone; app.state.product.teacherPhone = phone || app.state.product.teacherPhone;
+    saveState();
+    if (!reflectionValid() && app.state.mode !== 'ez') { showToast('Lengkapi pulse-check dan refleksi 1–3 kalimat.'); return; }
+    markStepDone(9); renderMenu(); renderCourse(); goToStep(9, false);
+    if (!phone) { showToast('Nomor WhatsApp guru belum diisi.'); return; }
+    const msg = encodeURIComponent(`Refleksi Misi Gambut\nNama: ${app.state.identity.name}\nKelas: ${app.state.identity.class}\nPerasaan: ${app.state.reflection.mood}\nRefleksi: ${note}`);
+    window.open(`https://wa.me/${phone}?text=${msg}`, '_blank');
+  }
+
+  function buildRecapText() {
+    return `Rekap Misi Gambut: Menyelamatkan Lahan\nNama: ${app.state.identity.name}\nKelas: ${app.state.identity.class}\nSekolah: ${app.state.identity.school}\nSektor direkomendasikan: ${app.state.product.recommended === 'B' ? 'Sektor B' : app.state.product.recommended === 'A' ? 'Sektor A' : '-'}\nAlasan: ${app.state.product.reason || '-'}\nRefleksi: ${app.state.reflection.note || '-'}\nTanggal: ${formatDateDisplay(app.state.certificate.date)}\nKode Sertifikat: ${app.state.certificate.code}`;
+  }
+
+  function sendRecapWA() {
+    const phone = cleanPhone(qs('#recapPhone')?.value || '');
+    app.state.product.teacherPhone = phone; app.state.reflection.teacherPhone = phone || app.state.reflection.teacherPhone; saveState();
+    if (!phone) { showToast('Nomor WhatsApp guru belum diisi.'); return; }
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(buildRecapText())}`, '_blank');
+  }
+
+  function handleRestartCourse() {
+    confirmAction('Ulangi Langkah Belajar', '<p>Seluruh progres langkah akan dihapus, tetapi identitas serta preferensi suara, huruf, dan tema tetap dipertahankan. Lanjutkan?</p>', () => {
+      const oldIdentity = { ...app.state.identity };
+      const oldTheme = app.state.theme, oldSound = app.state.soundOn, oldFont = app.state.fontLevel;
+      app.state = defaultState();
+      app.state.identity = oldIdentity; app.state.theme = oldTheme; app.state.soundOn = oldSound; app.state.fontLevel = oldFont;
+      app.state.stepUnlocked = 1;
+      saveState(); renderAll(); showCourse(2);
+    });
+  }
+
+  function downloadCertificate() {
+    showToast('PDF sedang disiapkan…');
+    const date = app.state.certificate.date.replaceAll('-','');
+    const code = app.state.certificate.code;
+    const lines = [
+      'SERTIFIKAT PENYELESAIAN',
+      'Perjalanan Belajar: Misi Gambut: Menyelamatkan Lahan',
+      '',
+      `Nama: ${app.state.identity.name}`,
+      `Kelas: ${app.state.identity.class}`,
+      `Sekolah: ${app.state.identity.school}`,
+      '',
+      'Tujuan Pembelajaran:',
+      '1. Menentukan luas sektor lahan dari denah.',
+      '2. Membandingkan dua alternatif berdasarkan kebutuhan sumber daya.',
+      '3. Menyusun rekomendasi berbasis data.',
+      '',
+      `Tanggal penyelesaian: ${formatDateDisplay(app.state.certificate.date)}`,
+      `Kode verifikasi: ${code}`,
+      '',
+      'SMA Negeri 3 Maliku'
+    ];
+    const blob = createSimplePDF(lines);
+    try {
+      downloadBlob(blob, `sertifikat_${COURSE_CODE}_${app.state.identity.name.replace(/\s+/g,'_')}.pdf`);
+      showToast('Unduhan dimulai.');
+    } catch (e) {
+      const url = URL.createObjectURL(blob);
+      window.open(url, '_blank');
+      showToast('PDF dibuka di tab baru. Simpan manual bila perlu.');
+    }
+    markStepDone(10);
+  }
+
+  function createSimplePDF(lines) {
+    const esc = s => String(s).replace(/\\/g,'\\\\').replace(/\(/g,'\\(').replace(/\)/g,'\\)').replace(/[^\x20-\x7E]/g, '');
+    let content = 'BT\n/F1 18 Tf\n50 790 Td\n';
+    lines.forEach((line, i) => {
+      if (i === 0) content += `(${esc(line)}) Tj\n`;
+      else {
+        const fontSize = line.startsWith('1.') || line.startsWith('2.') || line.startsWith('3.') ? 12 : 12;
+        content += `0 -22 Td\n/F1 ${fontSize} Tf\n(${esc(line)}) Tj\n`;
+      }
+    });
+    content += 'ET';
+    const objects = [];
+    const addObj = str => { objects.push(str); return objects.length; };
+    addObj('<< /Type /Catalog /Pages 2 0 R >>');
+    addObj('<< /Type /Pages /Kids [3 0 R] /Count 1 >>');
+    addObj('<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Contents 4 0 R /Resources << /Font << /F1 5 0 R >> >> >>');
+    addObj(`<< /Length ${content.length} >>\nstream\n${content}\nendstream`);
+    addObj('<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>');
+    let pdf = '%PDF-1.4\n';
+    const offsets = [0];
+    objects.forEach((obj, idx) => {
+      offsets.push(pdf.length);
+      pdf += `${idx+1} 0 obj\n${obj}\nendobj\n`;
+    });
+    const xrefPos = pdf.length;
+    pdf += `xref\n0 ${objects.length+1}\n0000000000 65535 f \n`;
+    for (let i=1;i<offsets.length;i++) pdf += `${String(offsets[i]).padStart(10,'0')} 00000 n \n`;
+    pdf += `trailer\n<< /Size ${objects.length+1} /Root 1 0 R >>\nstartxref\n${xrefPos}\n%%EOF`;
+    return new Blob([pdf], {type:'application/pdf'});
+  }
+
+  function copyText(text, successMsg='Teks disalin.') {
+    navigator.clipboard?.writeText(text).then(() => showToast(successMsg)).catch(() => showToast('Gagal menyalin secara otomatis. Silakan salin manual.'));
+  }
+  function downloadBlob(blob, filename) {
+    const a = document.createElement('a'); const url = URL.createObjectURL(blob);
+    a.href = url; a.download = filename; document.body.appendChild(a); a.click(); a.remove(); setTimeout(() => URL.revokeObjectURL(url), 2000);
+  }
+
+  function goToStep(step, play = true) {
+    if (step < 1 || step > 10) return;
+    if (step === 1) { showCover(); return; }
+    if (step > app.state.stepUnlocked + 1 && app.state.mode === 'normal') { showToast(`Selesaikan ${stepNames[app.state.stepUnlocked]} terlebih dahulu.`); return; }
+    if (step > 1 && app.state.mode === 'normal' && !isStepOpen(step)) { showToast(`Selesaikan ${stepNames[step-2]} terlebih dahulu.`); return; }
+    app.currentStep = step;
+    qsa('.step-view').forEach(s => s.classList.remove('active'));
+    qs(`#step-${step}`)?.classList.add('active');
+    updateHeader();
+    renderMenu();
+    closeMenu();
+    stopSpeaking();
+    window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
+    if (step === 2 && !app.state.seenTpCinematic && app.state.mode === 'normal') startCinematic('tp');
+    if (step === 7 && !app.state.seenBossCinematic && app.state.mode === 'normal') startCinematic('boss');
+    if (play) sound('lanjut');
+  }
+
+  function isStepOpen(step) { return step <= app.state.stepUnlocked + 1 || app.state.mode !== 'normal'; }
+  function markStepDone(stepNum) {
+    if (stepNum >= 1 && stepNum <= 10) {
+      app.state.stepDone[stepNum-1] = true;
+      app.state.stepUnlocked = Math.max(app.state.stepUnlocked, stepNum);
+      saveState(); updateHeader(); renderMenu();
+    }
+  }
+
+  function renderMenu() {
+    const curr = app.currentStep;
+    el.menuList.innerHTML = stepNames.map((name, i) => {
+      const n = i+1;
+      const done = app.state.stepDone[i];
+      const open = n <= app.state.stepUnlocked + 1 || app.state.mode !== 'normal';
+      const status = done ? '✅ selesai' : curr===n ? '▶ giliran' : open ? '▶ terbuka' : '🔒 terkunci';
+      return `<div class="menu-item ${done?'done':''} ${curr===n?'current':''} ${open?'':'locked'}" data-menu-step="${n}">
+        <div class="num">${n}</div>
+        <div style="min-width:0;"><strong>${stepIcons[i]} ${escapeHtml(name)}</strong><div class="tiny muted">${status}</div></div>
+      </div>`;
+    }).join('');
+    qsa('[data-menu-step]', el.menuList).forEach(item => item.onclick = () => {
+      const step = Number(item.dataset.menuStep);
+      if (!isStepOpen(step)) { showToast(`Selesaikan ${stepNames[step-2]} terlebih dahulu.`); return; }
+      goToStep(step);
+    });
+  }
+
+  function updateTeacherPanel() {
+    el.teacherModeText.textContent = app.state.mode === 'normal' ? 'Normal' : app.state.mode.toUpperCase();
+    el.togglePresentBtn.textContent = app.state.presentMode ? 'Nonaktifkan' : 'Aktifkan';
+  }
+
+  function openMenu(){ el.menuDrawer.classList.add('open'); el.menuOverlay.classList.add('open'); }
+  function closeMenu(){ el.menuDrawer.classList.remove('open'); el.menuOverlay.classList.remove('open'); }
+
+  function showFeedback(title, html, onNext) {
+    el.feedbackTitle.textContent = title; el.feedbackContent.innerHTML = html; el.feedbackModalWrap.classList.add('show');
+    app.feedbackResolver = () => { el.feedbackModalWrap.classList.remove('show'); onNext && onNext(); };
+  }
+
+  function confirmAction(title, html, onOk) {
+    el.confirmTitle.textContent = title; el.confirmContent.innerHTML = html; el.confirmModalWrap.classList.add('show');
+    app.confirmResolver = onOk;
+  }
+
+  function startCinematic(kind, replay=false) {
+    const data = cinematicData[kind]; if (!data) return;
+    app.currentCinematic = kind; app.currentBeatIndex = 0;
+    el.cinematicWrap.classList.add('show');
+    el.cinContinueBtn.disabled = true; el.cinContinueBtn.classList.add('locked'); el.cinContinueBtn.textContent = 'Lanjut';
+    el.cinSkipBtn.classList.toggle('hidden', !(app.state.mode === 'fasil' || app.state.mode === 'ez'));
+    buildCinematicScene(data.scene);
+    runCinematicBeat();
+  }
+
+  function buildCinematicScene(scene) {
+    if (scene === 'boss') {
+      el.cinStage.innerHTML = `
+        <div class="scene-orb"></div>
+        <div class="scene-cloud c1"></div><div class="scene-cloud c2"></div>
+        <div class="scene-tree" style="left:10%; bottom:0"></div>
+        <div class="scene-tree" style="left:20%; bottom:0; transform:scale(1.1);"></div>
+        <div class="scene-tree" style="right:14%; bottom:0; transform:scale(1.2);"></div>
+        <div class="scene-boss"></div>`;
+    } else {
+      el.cinStage.innerHTML = `
+        <div class="scene-orb"></div>
+        <div class="scene-cloud c1"></div><div class="scene-cloud c2"></div>
+        <div class="scene-tree" style="left:12%; bottom:0"></div>
+        <div class="scene-tree" style="left:28%; bottom:0; transform:scale(1.15);"></div>
+        <div class="scene-tree" style="right:18%; bottom:0; transform:scale(1.25);"></div>
+        <div class="scene-tower"></div>
+        <div class="scene-jeep"></div>`;
+    }
+  }
+
+  function runCinematicBeat() {
+    clearTimeout(app.cinematicTimer);
+    const data = cinematicData[app.currentCinematic]; if (!data) return;
+    const text = data.beats[app.currentBeatIndex];
+    el.cinBeatText.textContent = text; el.cinBeatText.classList.remove('show');
+    requestAnimationFrame(() => el.cinBeatText.classList.add('show'));
+    sound('opening');
+    const secs = inFastMode() ? 2 : Math.max(3, Math.ceil(wordCount(text)/2.5 + 1));
+    if (app.currentBeatIndex < data.beats.length - 1) {
+      app.cinematicTimer = setTimeout(() => { app.currentBeatIndex += 1; runCinematicBeat(); }, secs * 1000);
+    } else {
+      app.cinematicTimer = setTimeout(() => {
+        el.cinContinueBtn.disabled = false; el.cinContinueBtn.classList.remove('locked');
+        if (app.currentCinematic === 'tp') app.state.seenTpCinematic = true; else app.state.seenBossCinematic = true;
+        saveState();
+      }, secs * 1000);
+    }
+  }
+
+  function stopCinematic() { clearTimeout(app.cinematicTimer); el.cinematicWrap.classList.remove('show'); }
+
+  function handleTeacherUnlock() {
+    const code = el.teacherCodeInput.value.trim(); const h = hashCode(code);
+    if (h === FACIL_HASH) { app.state.mode = 'fasil'; app.state.stepUnlocked = 10; showToast('Mode Fasilitator aktif.'); sound('unlock'); }
+    else if (h === EZ_HASH) { app.state.mode = 'ez'; app.state.stepUnlocked = 10; showToast('Mode EZ aktif.'); sound('unlock'); }
+    else { showToast('Kode akses tidak cocok.'); sound('salah'); return; }
+    saveState(); updateTeacherPanel(); renderAll();
+  }
+  function clearTeacherMode() { app.state.mode = 'normal'; app.state.presentMode = false; saveState(); updateTeacherPanel(); renderAll(); showToast('Mode khusus dimatikan.'); }
+  function togglePresentMode() { app.state.presentMode = !app.state.presentMode; if (!app.state.presentMode) app.presentScale = 1; saveState(); applyPrefs(); updateTeacherPanel(); updateHeader(); }
+  function addTouchRing(ev) {
+    if (!app.state.presentMode) return;
+    const ring = document.createElement('div'); ring.className = 'touch-ring'; ring.style.left = ev.clientX + 'px'; ring.style.top = ev.clientY + 'px'; document.body.appendChild(ring); setTimeout(() => ring.remove(), 650);
+  }
+
+  // Global listeners
+  el.menuBtn.onclick = openMenu; el.menuCloseBtn.onclick = closeMenu; el.menuOverlay.onclick = closeMenu;
+  el.startBtn.onclick = () => {
+    const name = el.loginName.value.trim(); const klass = el.loginClass.value.trim(); const school = el.loginSchool.value.trim() || DEFAULT_SCHOOL;
+    if (!name || !klass) { showToast('Nama dan kelas wajib diisi.'); return; }
+    app.state.identity = { name, class: klass, school };
+    app.state.stepUnlocked = Math.max(app.state.stepUnlocked, 1);
+    saveState(); sound('opening'); renderAll(); showCourse(2);
+  };
+  el.resumeBtn.onclick = () => { el.loginName.value = app.state.identity.name; el.loginClass.value = app.state.identity.class; el.loginSchool.value = app.state.identity.school; renderAll(); showCourse(Math.max(2, Math.min(10, app.state.stepUnlocked + 1))); };
+  el.teacherAccessLink.onclick = () => el.teacherModalWrap.classList.add('show');
+  el.teacherBtn.onclick = () => el.teacherModalWrap.classList.add('show');
+  el.teacherUnlockBtn.onclick = handleTeacherUnlock;
+  el.teacherClearModeBtn.onclick = clearTeacherMode;
+  el.togglePresentBtn.onclick = togglePresentMode;
+  el.resetIdentityBtn.onclick = () => confirmAction('Reset Identitas', '<p>Semua identitas dan progres akan dihapus sepenuhnya. Ini tidak dapat dibatalkan. Lanjutkan?</p>', () => resetToDefault(true));
+  el.certCheckBtn.onclick = () => {
+    const date = (el.certCheckDate.value || '').replaceAll('-','');
+    const code = computeCertCode(el.certCheckName.value.trim(), el.certCheckClass.value.trim(), el.certCheckSchool.value.trim(), date);
+    if ((el.certCheckCode.value || '').trim().toUpperCase() === code) {
+      el.certCheckResult.innerHTML = `<strong style="color:var(--success)">Kode cocok.</strong> Sertifikat sesuai data yang dimasukkan.`;
+    } else {
+      el.certCheckResult.innerHTML = `<strong style="color:var(--danger)">Kode tidak cocok.</strong> Kode yang diharapkan: <strong>${code}</strong>.`;
+    }
+  };
+  el.soundBtn.onclick = () => { app.state.soundOn = !app.state.soundOn; saveState(); applyPrefs(); showToast(app.state.soundOn ? 'Suara diaktifkan.' : 'Suara dimatikan.'); };
+  el.speakBtn.onclick = speakCurrent;
+  el.fontBtn.onclick = () => { app.state.fontLevel = (app.state.fontLevel + 1) % 3; saveState(); applyPrefs(); showToast(['Ukuran huruf normal.','Ukuran huruf besar.','Ukuran huruf sangat besar.'][app.state.fontLevel]); renderAll(); if (app.currentStep) goToStep(app.currentStep,false); };
+  el.themeBtn.onclick = () => { app.state.theme = app.state.theme === 'dark' ? 'light' : 'dark'; saveState(); applyPrefs(); renderAll(); if (app.currentStep) goToStep(app.currentStep,false); };
+  el.feedbackNextBtn.onclick = () => { app.feedbackResolver && app.feedbackResolver(); };
+  el.feedbackCloseBtn.onclick = () => { el.feedbackModalWrap.classList.remove('show'); };
+  el.confirmOkBtn.onclick = () => { const cb = app.confirmResolver; el.confirmModalWrap.classList.remove('show'); cb && cb(); };
+  qsa('[data-close]').forEach(btn => btn.onclick = () => { const target = qs(btn.dataset.close); target?.classList.remove('show'); });
+  el.presentGrow.onclick = () => { app.presentScale = Math.min(1.3, +(app.presentScale + 0.05).toFixed(2)); applyPrefs(); };
+  el.presentShrink.onclick = () => { app.presentScale = Math.max(0.85, +(app.presentScale - 0.05).toFixed(2)); applyPrefs(); };
+  el.presentClose.onclick = () => { app.state.presentMode = false; app.presentScale = 1; saveState(); applyPrefs(); updateTeacherPanel(); updateHeader(); };
+  el.cinReplayBtn.onclick = () => { app.currentBeatIndex = 0; runCinematicBeat(); };
+  el.cinSkipBtn.onclick = () => { if (!(app.state.mode === 'fasil' || app.state.mode === 'ez')) return; if (app.currentCinematic === 'tp') app.state.seenTpCinematic = true; else app.state.seenBossCinematic = true; saveState(); stopCinematic(); };
+  el.cinContinueBtn.onclick = () => { if (el.cinContinueBtn.disabled) return; stopCinematic(); };
+  document.addEventListener('click', addTouchRing, true);
+  document.addEventListener('visibilitychange', () => { if (document.visibilityState !== 'visible') stopSpeaking(); });
+  window.addEventListener('resize', () => { renderAll(); if (app.currentStep) goToStep(app.currentStep,false); });
+
+  // Initial boot
+  el.loginName.value = app.state.identity.name || '';
+  el.loginClass.value = app.state.identity.class || '';
+  el.loginSchool.value = app.state.identity.school || DEFAULT_SCHOOL;
+  if (app.state.identity.name) { showCourse(Math.max(2, Math.min(10, app.state.stepUnlocked + 1))); }
+  else showCover();
+  renderAll();
+})();
+</script>
+</body>
+</html>

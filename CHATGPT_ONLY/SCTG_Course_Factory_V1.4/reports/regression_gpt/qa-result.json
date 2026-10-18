@@ -1,0 +1,1093 @@
+{
+  "course": "Misi Gambut GPT — regression control / expected to fail",
+  "html": "/mnt/data/SCTG_Course_Factory_ChatGPT/demos/Misi_Gambut_GPT_REJECTED.html",
+  "timestamp": "2026-10-16T15:22:03.525832+00:00",
+  "status": "NOT_RELEASE_READY",
+  "sha256": "5aac58e27278bf81583b0b7b9f138997ea8a823565766dd4d76ec398eb319235",
+  "transport": "sandbox",
+  "matrix": [
+    [
+      "Genggam_390x700",
+      390,
+      700
+    ],
+    [
+      "Panggung_1280x650",
+      1280,
+      650
+    ],
+    [
+      "Batas_900x500",
+      900,
+      500
+    ]
+  ],
+  "findings": [
+    {
+      "scope": "static",
+      "status": "PASS",
+      "description": "Viewport metadata present",
+      "evidence": null
+    },
+    {
+      "scope": "static",
+      "status": "PASS",
+      "description": "No external scripts or styles",
+      "evidence": null
+    },
+    {
+      "scope": "cover/Genggam_390x700",
+      "status": "PASS",
+      "description": "No horizontal document overflow",
+      "evidence": {
+        "width": 390,
+        "height": 700,
+        "scrollWidth": 390,
+        "bodyScrollWidth": 390,
+        "scrollHeight": 956,
+        "overflowX": 0,
+        "overflowY": 256,
+        "oversizeElements": [
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-head",
+            "left": -367,
+            "right": -8
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "left": -351,
+            "right": -234
+          },
+          {
+            "tag": "STRONG",
+            "id": "",
+            "cls": "",
+            "left": -351,
+            "right": -236
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "tiny muted",
+            "left": -351,
+            "right": -234
+          },
+          {
+            "tag": "BUTTON",
+            "id": "menuCloseBtn",
+            "cls": "icon-btn",
+            "left": -64,
+            "right": -24
+          },
+          {
+            "tag": "DIV",
+            "id": "menuList",
+            "cls": "menu-list",
+            "left": -367,
+            "right": -8
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-item   ",
+            "left": -355,
+            "right": -20
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "num",
+            "left": -342,
+            "right": -308
+          }
+        ]
+      }
+    },
+    {
+      "scope": "cover/Genggam_390x700",
+      "status": "PASS",
+      "description": "Target visible",
+      "evidence": null
+    },
+    {
+      "scope": "cover/Genggam_390x700",
+      "status": "PASS",
+      "description": "No uncaught JS errors",
+      "evidence": null
+    },
+    {
+      "scope": "cover/Panggung_1280x650",
+      "status": "PASS",
+      "description": "No horizontal document overflow",
+      "evidence": {
+        "width": 1280,
+        "height": 650,
+        "scrollWidth": 1280,
+        "bodyScrollWidth": 1280,
+        "scrollHeight": 696,
+        "overflowX": 0,
+        "overflowY": 46,
+        "oversizeElements": [
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-head",
+            "left": -367,
+            "right": -8
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "left": -351,
+            "right": -234
+          },
+          {
+            "tag": "STRONG",
+            "id": "",
+            "cls": "",
+            "left": -351,
+            "right": -236
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "tiny muted",
+            "left": -351,
+            "right": -234
+          },
+          {
+            "tag": "BUTTON",
+            "id": "menuCloseBtn",
+            "cls": "icon-btn",
+            "left": -66,
+            "right": -24
+          },
+          {
+            "tag": "DIV",
+            "id": "menuList",
+            "cls": "menu-list",
+            "left": -367,
+            "right": -8
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-item   ",
+            "left": -355,
+            "right": -20
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "num",
+            "left": -342,
+            "right": -308
+          }
+        ]
+      }
+    },
+    {
+      "scope": "cover/Panggung_1280x650",
+      "status": "PASS",
+      "description": "Target visible",
+      "evidence": null
+    },
+    {
+      "scope": "cover/Panggung_1280x650",
+      "status": "PASS",
+      "description": "No uncaught JS errors",
+      "evidence": null
+    },
+    {
+      "scope": "cover/Batas_900x500",
+      "status": "PASS",
+      "description": "No horizontal document overflow",
+      "evidence": {
+        "width": 900,
+        "height": 500,
+        "scrollWidth": 900,
+        "bodyScrollWidth": 900,
+        "scrollHeight": 832,
+        "overflowX": 0,
+        "overflowY": 332,
+        "oversizeElements": [
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-head",
+            "left": -367,
+            "right": -8
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "left": -351,
+            "right": -234
+          },
+          {
+            "tag": "STRONG",
+            "id": "",
+            "cls": "",
+            "left": -351,
+            "right": -236
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "tiny muted",
+            "left": -351,
+            "right": -234
+          },
+          {
+            "tag": "BUTTON",
+            "id": "menuCloseBtn",
+            "cls": "icon-btn",
+            "left": -66,
+            "right": -24
+          },
+          {
+            "tag": "DIV",
+            "id": "menuList",
+            "cls": "menu-list",
+            "left": -367,
+            "right": -8
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-item   ",
+            "left": -355,
+            "right": -20
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "num",
+            "left": -342,
+            "right": -308
+          }
+        ]
+      }
+    },
+    {
+      "scope": "cover/Batas_900x500",
+      "status": "PASS",
+      "description": "Target visible",
+      "evidence": null
+    },
+    {
+      "scope": "cover/Batas_900x500",
+      "status": "PASS",
+      "description": "No uncaught JS errors",
+      "evidence": null
+    },
+    {
+      "scope": "game/Genggam_390x700",
+      "status": "FAIL",
+      "description": "Horizontal overflow = 214px",
+      "evidence": {
+        "width": 390,
+        "height": 700,
+        "scrollWidth": 604,
+        "bodyScrollWidth": 604,
+        "scrollHeight": 1052,
+        "overflowX": 214,
+        "overflowY": 352,
+        "oversizeElements": [
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "head-right",
+            "left": 380,
+            "right": 604
+          },
+          {
+            "tag": "BUTTON",
+            "id": "soundBtn",
+            "cls": "icon-btn",
+            "left": 380,
+            "right": 420
+          },
+          {
+            "tag": "BUTTON",
+            "id": "speakBtn",
+            "cls": "icon-btn",
+            "left": 426,
+            "right": 466
+          },
+          {
+            "tag": "BUTTON",
+            "id": "fontBtn",
+            "cls": "icon-btn",
+            "left": 472,
+            "right": 512
+          },
+          {
+            "tag": "BUTTON",
+            "id": "themeBtn",
+            "cls": "icon-btn",
+            "left": 518,
+            "right": 558
+          },
+          {
+            "tag": "BUTTON",
+            "id": "teacherBtn",
+            "cls": "icon-btn",
+            "left": 564,
+            "right": 604
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-head",
+            "left": -324,
+            "right": 35
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "left": -308,
+            "right": -190
+          }
+        ]
+      }
+    },
+    {
+      "scope": "game/Genggam_390x700",
+      "status": "FAIL",
+      "description": "Vertical page scrolling in game/reading = 352px",
+      "evidence": {
+        "width": 390,
+        "height": 700,
+        "scrollWidth": 604,
+        "bodyScrollWidth": 604,
+        "scrollHeight": 1052,
+        "overflowX": 214,
+        "overflowY": 352,
+        "oversizeElements": [
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "head-right",
+            "left": 380,
+            "right": 604
+          },
+          {
+            "tag": "BUTTON",
+            "id": "soundBtn",
+            "cls": "icon-btn",
+            "left": 380,
+            "right": 420
+          },
+          {
+            "tag": "BUTTON",
+            "id": "speakBtn",
+            "cls": "icon-btn",
+            "left": 426,
+            "right": 466
+          },
+          {
+            "tag": "BUTTON",
+            "id": "fontBtn",
+            "cls": "icon-btn",
+            "left": 472,
+            "right": 512
+          },
+          {
+            "tag": "BUTTON",
+            "id": "themeBtn",
+            "cls": "icon-btn",
+            "left": 518,
+            "right": 558
+          },
+          {
+            "tag": "BUTTON",
+            "id": "teacherBtn",
+            "cls": "icon-btn",
+            "left": 564,
+            "right": 604
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-head",
+            "left": -324,
+            "right": 35
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "left": -308,
+            "right": -190
+          }
+        ]
+      }
+    },
+    {
+      "scope": "game/Genggam_390x700",
+      "status": "PASS",
+      "description": "Target visible",
+      "evidence": null
+    },
+    {
+      "scope": "game/Genggam_390x700",
+      "status": "FAIL",
+      "description": "Canvas blank/invalid",
+      "evidence": {
+        "ok": false,
+        "error": "canvas too small",
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "scope": "game/Genggam_390x700",
+      "status": "PASS",
+      "description": "No uncaught JS errors",
+      "evidence": null
+    },
+    {
+      "scope": "game/Panggung_1280x650",
+      "status": "PASS",
+      "description": "No horizontal document overflow",
+      "evidence": {
+        "width": 1280,
+        "height": 650,
+        "scrollWidth": 1280,
+        "bodyScrollWidth": 1280,
+        "scrollHeight": 818,
+        "overflowX": 0,
+        "overflowY": 168,
+        "oversizeElements": [
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-head",
+            "left": -307,
+            "right": 52
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "left": -291,
+            "right": -173
+          },
+          {
+            "tag": "STRONG",
+            "id": "",
+            "cls": "",
+            "left": -291,
+            "right": -176
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "tiny muted",
+            "left": -291,
+            "right": -173
+          },
+          {
+            "tag": "BUTTON",
+            "id": "menuCloseBtn",
+            "cls": "icon-btn",
+            "left": -6,
+            "right": 36
+          },
+          {
+            "tag": "DIV",
+            "id": "menuList",
+            "cls": "menu-list",
+            "left": -307,
+            "right": 52
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-item done  ",
+            "left": -295,
+            "right": 40
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "num",
+            "left": -282,
+            "right": -248
+          }
+        ]
+      }
+    },
+    {
+      "scope": "game/Panggung_1280x650",
+      "status": "FAIL",
+      "description": "Vertical page scrolling in game/reading = 168px",
+      "evidence": {
+        "width": 1280,
+        "height": 650,
+        "scrollWidth": 1280,
+        "bodyScrollWidth": 1280,
+        "scrollHeight": 818,
+        "overflowX": 0,
+        "overflowY": 168,
+        "oversizeElements": [
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-head",
+            "left": -307,
+            "right": 52
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "left": -291,
+            "right": -173
+          },
+          {
+            "tag": "STRONG",
+            "id": "",
+            "cls": "",
+            "left": -291,
+            "right": -176
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "tiny muted",
+            "left": -291,
+            "right": -173
+          },
+          {
+            "tag": "BUTTON",
+            "id": "menuCloseBtn",
+            "cls": "icon-btn",
+            "left": -6,
+            "right": 36
+          },
+          {
+            "tag": "DIV",
+            "id": "menuList",
+            "cls": "menu-list",
+            "left": -307,
+            "right": 52
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-item done  ",
+            "left": -295,
+            "right": 40
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "num",
+            "left": -282,
+            "right": -248
+          }
+        ]
+      }
+    },
+    {
+      "scope": "game/Panggung_1280x650",
+      "status": "PASS",
+      "description": "Target visible",
+      "evidence": null
+    },
+    {
+      "scope": "game/Panggung_1280x650",
+      "status": "FAIL",
+      "description": "Canvas blank/invalid",
+      "evidence": {
+        "ok": false,
+        "error": "canvas too small",
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "scope": "game/Panggung_1280x650",
+      "status": "PASS",
+      "description": "No uncaught JS errors",
+      "evidence": null
+    },
+    {
+      "scope": "game/Batas_900x500",
+      "status": "PASS",
+      "description": "No horizontal document overflow",
+      "evidence": {
+        "width": 900,
+        "height": 500,
+        "scrollWidth": 900,
+        "bodyScrollWidth": 900,
+        "scrollHeight": 911,
+        "overflowX": 0,
+        "overflowY": 411,
+        "oversizeElements": [
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-head",
+            "left": -324,
+            "right": 35
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "left": -308,
+            "right": -190
+          },
+          {
+            "tag": "STRONG",
+            "id": "",
+            "cls": "",
+            "left": -308,
+            "right": -193
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "tiny muted",
+            "left": -308,
+            "right": -190
+          },
+          {
+            "tag": "BUTTON",
+            "id": "menuCloseBtn",
+            "cls": "icon-btn",
+            "left": -23,
+            "right": 19
+          },
+          {
+            "tag": "DIV",
+            "id": "menuList",
+            "cls": "menu-list",
+            "left": -324,
+            "right": 35
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-item done  ",
+            "left": -312,
+            "right": 23
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "num",
+            "left": -299,
+            "right": -265
+          }
+        ]
+      }
+    },
+    {
+      "scope": "game/Batas_900x500",
+      "status": "FAIL",
+      "description": "Vertical page scrolling in game/reading = 411px",
+      "evidence": {
+        "width": 900,
+        "height": 500,
+        "scrollWidth": 900,
+        "bodyScrollWidth": 900,
+        "scrollHeight": 911,
+        "overflowX": 0,
+        "overflowY": 411,
+        "oversizeElements": [
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-head",
+            "left": -324,
+            "right": 35
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "left": -308,
+            "right": -190
+          },
+          {
+            "tag": "STRONG",
+            "id": "",
+            "cls": "",
+            "left": -308,
+            "right": -193
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "tiny muted",
+            "left": -308,
+            "right": -190
+          },
+          {
+            "tag": "BUTTON",
+            "id": "menuCloseBtn",
+            "cls": "icon-btn",
+            "left": -23,
+            "right": 19
+          },
+          {
+            "tag": "DIV",
+            "id": "menuList",
+            "cls": "menu-list",
+            "left": -324,
+            "right": 35
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-item done  ",
+            "left": -312,
+            "right": 23
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "num",
+            "left": -299,
+            "right": -265
+          }
+        ]
+      }
+    },
+    {
+      "scope": "game/Batas_900x500",
+      "status": "PASS",
+      "description": "Target visible",
+      "evidence": null
+    },
+    {
+      "scope": "game/Batas_900x500",
+      "status": "FAIL",
+      "description": "Canvas blank/invalid",
+      "evidence": {
+        "ok": false,
+        "error": "canvas too small",
+        "width": 0,
+        "height": 0
+      }
+    },
+    {
+      "scope": "game/Batas_900x500",
+      "status": "PASS",
+      "description": "No uncaught JS errors",
+      "evidence": null
+    },
+    {
+      "scope": "typing/Genggam_390x700",
+      "status": "FAIL",
+      "description": "Horizontal overflow = 186px",
+      "evidence": {
+        "width": 390,
+        "height": 700,
+        "scrollWidth": 576,
+        "bodyScrollWidth": 576,
+        "scrollHeight": 1421,
+        "overflowX": 186,
+        "overflowY": 721,
+        "oversizeElements": [
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "head-right",
+            "left": 352,
+            "right": 576
+          },
+          {
+            "tag": "BUTTON",
+            "id": "soundBtn",
+            "cls": "icon-btn",
+            "left": 352,
+            "right": 392
+          },
+          {
+            "tag": "BUTTON",
+            "id": "speakBtn",
+            "cls": "icon-btn",
+            "left": 398,
+            "right": 438
+          },
+          {
+            "tag": "BUTTON",
+            "id": "fontBtn",
+            "cls": "icon-btn",
+            "left": 444,
+            "right": 484
+          },
+          {
+            "tag": "BUTTON",
+            "id": "themeBtn",
+            "cls": "icon-btn",
+            "left": 490,
+            "right": 530
+          },
+          {
+            "tag": "BUTTON",
+            "id": "teacherBtn",
+            "cls": "icon-btn",
+            "left": 536,
+            "right": 576
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-head",
+            "left": -324,
+            "right": 35
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "left": -308,
+            "right": -190
+          }
+        ]
+      }
+    },
+    {
+      "scope": "typing/Genggam_390x700",
+      "status": "PASS",
+      "description": "Target visible",
+      "evidence": null
+    },
+    {
+      "scope": "typing/Genggam_390x700",
+      "status": "FAIL",
+      "description": "Keyboard resize retains input focus and unsubmitted value",
+      "evidence": {
+        "before": "Tes keyboard tetap aktif ABC123",
+        "after": "",
+        "focusRetained": false
+      }
+    },
+    {
+      "scope": "typing/Genggam_390x700",
+      "status": "PASS",
+      "description": "No uncaught JS errors",
+      "evidence": null
+    },
+    {
+      "scope": "typing/Panggung_1280x650",
+      "status": "PASS",
+      "description": "No horizontal document overflow",
+      "evidence": {
+        "width": 1280,
+        "height": 650,
+        "scrollWidth": 1280,
+        "bodyScrollWidth": 1280,
+        "scrollHeight": 991,
+        "overflowX": 0,
+        "overflowY": 341,
+        "oversizeElements": [
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-head",
+            "left": -337,
+            "right": 22
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "",
+            "left": -321,
+            "right": -204
+          },
+          {
+            "tag": "STRONG",
+            "id": "",
+            "cls": "",
+            "left": -321,
+            "right": -206
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "tiny muted",
+            "left": -321,
+            "right": -204
+          },
+          {
+            "tag": "BUTTON",
+            "id": "menuCloseBtn",
+            "cls": "icon-btn",
+            "left": -36,
+            "right": 6
+          },
+          {
+            "tag": "DIV",
+            "id": "menuList",
+            "cls": "menu-list",
+            "left": -337,
+            "right": 22
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "menu-item done  ",
+            "left": -325,
+            "right": 10
+          },
+          {
+            "tag": "DIV",
+            "id": "",
+            "cls": "num",
+            "left": -312,
+            "right": -278
+          }
+        ]
+      }
+    },
+    {
+      "scope": "typing/Panggung_1280x650",
+      "status": "PASS",
+      "description": "Target visible",
+      "evidence": null
+    },
+    {
+      "scope": "typing/Panggung_1280x650",
+      "status": "FAIL",
+      "description": "Keyboard resize retains input focus and unsubmitted value",
+      "evidence": {
+        "before": "Tes keyboard tetap aktif ABC123",
+        "after": "",
+        "focusRetained": false
+      }
+    },
+    {
+      "scope": "typing/Panggung_1280x650",
+      "status": "PASS",
+      "description": "No uncaught JS errors",
+      "evidence": null
+    },
+    {
+      "scope": "reading/coverage",
+      "status": "BLOCKED",
+      "description": "Required scene missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "game/coverage",
+      "status": "BLOCKED",
+      "description": "Required behavioral probe missing: interaction",
+      "evidence": null
+    },
+    {
+      "scope": "silent/coverage",
+      "status": "BLOCKED",
+      "description": "Required scene missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "boss/coverage",
+      "status": "BLOCKED",
+      "description": "Required scene missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "certificate/coverage",
+      "status": "BLOCKED",
+      "description": "Required scene missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "cinematic/coverage",
+      "status": "BLOCKED",
+      "description": "Cinematic scene must be checked unless explicitly not used in design",
+      "evidence": null
+    },
+    {
+      "scope": "flow/normal",
+      "status": "BLOCKED",
+      "description": "Required end-to-end flow/assertions missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "flow/ez",
+      "status": "BLOCKED",
+      "description": "Required end-to-end flow/assertions missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "flow/fasil",
+      "status": "BLOCKED",
+      "description": "Required end-to-end flow/assertions missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "flow/reset",
+      "status": "BLOCKED",
+      "description": "Required end-to-end flow/assertions missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "flow/resume",
+      "status": "BLOCKED",
+      "description": "Required end-to-end flow/assertions missing from QA profile",
+      "evidence": null
+    },
+    {
+      "scope": "manual/pedagogy",
+      "status": "BLOCKED",
+      "description": "Human/AI visual or pedagogy review absent",
+      "evidence": null
+    },
+    {
+      "scope": "manual/visual",
+      "status": "BLOCKED",
+      "description": "Human/AI visual or pedagogy review absent",
+      "evidence": null
+    },
+    {
+      "scope": "manual/game_feel",
+      "status": "BLOCKED",
+      "description": "Human/AI visual or pedagogy review absent",
+      "evidence": null
+    },
+    {
+      "scope": "manual/cinematic",
+      "status": "BLOCKED",
+      "description": "Human/AI visual or pedagogy review absent",
+      "evidence": null
+    },
+    {
+      "scope": "manual/accessibility",
+      "status": "BLOCKED",
+      "description": "Human/AI visual or pedagogy review absent",
+      "evidence": null
+    },
+    {
+      "scope": "matrix",
+      "status": "BLOCKED",
+      "description": "Fast subset is not full SCTG matrix",
+      "evidence": null
+    },
+    {
+      "scope": "origin",
+      "status": "BLOCKED",
+      "description": "Sandbox uses simulated localStorage; native persistence and downloads not certified",
+      "evidence": null
+    }
+  ],
+  "summary": {
+    "PASS": 24,
+    "FAIL": 10,
+    "BLOCKED": 18
+  }
+}

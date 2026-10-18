@@ -1,0 +1,6 @@
+:root{font-family:system-ui,Arial,sans-serif;color:#143629;background:#f0f6f1}
+body{font-size:16px}
+header{height:var(--sctg-header);display:flex;align-items:center;justify-content:space-between;padding:0 12px;background:#e0ede4}
+header button{min-width:48px;min-height:48px}
+main>section{padding:18px}
+/* Deliberately bare scaffolding. ChatGPT must supply original premium art direction per course. */

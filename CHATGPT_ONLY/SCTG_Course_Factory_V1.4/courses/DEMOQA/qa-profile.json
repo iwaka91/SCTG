@@ -1,0 +1,27 @@
+{
+  "title": "DEMOQA: Uji Factory Internal",
+  "scenes": {},
+  "flows": {},
+  "manual_review": {
+    "pedagogy": {
+      "status": "pending",
+      "evidence": ""
+    },
+    "visual": {
+      "status": "pending",
+      "evidence": ""
+    },
+    "game_feel": {
+      "status": "pending",
+      "evidence": ""
+    },
+    "cinematic": {
+      "status": "pending",
+      "evidence": ""
+    },
+    "accessibility": {
+      "status": "pending",
+      "evidence": ""
+    }
+  }
+}

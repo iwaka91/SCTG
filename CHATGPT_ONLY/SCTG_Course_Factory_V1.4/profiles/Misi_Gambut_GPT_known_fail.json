@@ -1,0 +1,36 @@
+{
+  "title": "Misi Gambut GPT — regression control / expected to fail",
+  "scenes": {
+    "cover": {"target":"#coverScreen"},
+    "game": {
+      "target":"#gameCanvas", "canvas":"#gameCanvas", "no_page_scroll":true,
+      "actions":[
+        {"action":"click","selector":"#teacherAccessLink"},
+        {"action":"fill","selector":"#teacherCodeInput","value":"123456a"},
+        {"action":"click","selector":"#teacherUnlockBtn"},
+        {"action":"click","selector":"[data-close='#teacherModalWrap']"},
+        {"action":"fill","selector":"#loginName","value":"Murid QA"},
+        {"action":"fill","selector":"#loginClass","value":"X1"},
+        {"action":"click","selector":"#startBtn"},
+        {"action":"click","selector":"#menuBtn"},
+        {"action":"click","selector":"[data-menu-step='4']"}
+      ]
+    },
+    "typing": {
+      "target":"#reasonJustification", "typing":{"selector":"#reasonJustification"},
+      "actions":[
+        {"action":"click","selector":"#teacherAccessLink"},
+        {"action":"fill","selector":"#teacherCodeInput","value":"123456a"},
+        {"action":"click","selector":"#teacherUnlockBtn"},
+        {"action":"click","selector":"[data-close='#teacherModalWrap']"},
+        {"action":"fill","selector":"#loginName","value":"Murid QA"},
+        {"action":"fill","selector":"#loginClass","value":"X1"},
+        {"action":"click","selector":"#startBtn"},
+        {"action":"click","selector":"#menuBtn"},
+        {"action":"click","selector":"[data-menu-step='5']"}
+      ]
+    }
+  },
+  "flows":{},
+  "manual_review":{}
+}

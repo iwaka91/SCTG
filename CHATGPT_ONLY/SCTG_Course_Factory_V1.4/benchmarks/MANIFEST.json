@@ -1,0 +1,38 @@
+{
+  "title": "SCTG Golden Benchmarks — read-only originals",
+  "rule": "Kedua course adalah baseline minimal berbeda, bukan template artwork yang disalin. Pakai komposisi, kedalaman pseudo-3D, interaktivitas dan dramaturgi sebagai tolok mutu; buat dunia visual orisinal setiap course.",
+  "references": [
+    {
+      "id": "NUM09",
+      "title": "Course NUM09 Claude",
+      "path": "NUM09_Claude_readonly.html",
+      "sha256": "102f3b4f09fffb2b0f1bbcde5ab2c341676a6eb143aedd5dab99c13d0c9dfdb0",
+      "source_zip": "NUM09_Claude_REFERENCE.zip",
+      "source_zip_sha256": "94469b467a47c0888027d2050246a18f724ddb87fd14949eedf92058acd2b5f3"
+    },
+    {
+      "id": "NUM10",
+      "title": "Misi Gambut: Menyelamatkan Lahan (Claude)",
+      "path": "NUM10_Misi_Gambut_Claude_readonly.html",
+      "sha256": "bcf55a45d47b64ed1f01859591bbf8af1ff6a940c7ca7dbaccdacc2313748e84",
+      "course_code": "NUM10",
+      "source_upload": "index-12.html"
+    }
+  ],
+  "capture_note": "NUM10 non-cover stage screenshots are VISUAL PREVIEW using isolated in-memory Fasil state and are NOT evidence of normal learner QA or final certification.",
+  "evidence": {
+    "NUM09": [
+      "NUM09_game_phone.png",
+      "NUM09_game_panggung.png",
+      "NUM09_sinematik.png"
+    ],
+    "NUM10": [
+      "NUM10_cover_390x700.png",
+      "NUM10_cover_1280x650.png",
+      "NUM10_game_390x700.png",
+      "NUM10_game_1280x650.png",
+      "NUM10_boss_1280x650.png",
+      "NUM10_reading_1280x650.png"
+    ]
+  }
+}

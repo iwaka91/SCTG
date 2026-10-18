@@ -1,0 +1,18 @@
+/* Shared safety rail — course-specific visual art direction lives elsewhere. */
+:root{--sctg-header:64px;--sctg-pad:clamp(12px,2vw,24px)}
+*,*::before,*::after{box-sizing:border-box}
+html,body{width:100%;min-width:0;margin:0;overflow-x:clip}
+img,svg,canvas,video{max-width:100%}
+input,textarea,select{min-width:0;max-width:100%;font:inherit}
+.sctg-view{width:100%;min-width:0}
+.sctg-game-screen{height:calc(100dvh - var(--sctg-header));min-height:0;display:grid;grid-template-rows:minmax(0,auto) minmax(0,1fr) minmax(0,auto);overflow:hidden;gap:clamp(4px,1vh,10px);padding:clamp(6px,1vh,14px) var(--sctg-pad)}
+.sctg-question{min-height:0;overflow-y:auto}
+.sctg-arena{min-height:0;position:relative;overflow:hidden}
+.sctg-arena canvas{display:block;width:100%;height:100%}
+.sctg-actions{min-height:0;overflow-y:auto}
+.sctg-touch{min-height:48px;min-width:48px}
+.sctg-read-button[disabled]{background:#c7ccd6!important;color:#59616d!important;box-shadow:none!important;animation:none!important;transform:none!important;opacity:1}
+.sctg-read-button:not([disabled]){transition:background-color .18s ease,color .18s ease;animation:none!important}
+@media (orientation:landscape) and (min-width:900px) and (min-height:500px){:root{--sctg-header:56px}.sctg-game-screen{max-width:1400px;margin:auto;gap:8px}.sctg-touch{min-width:56px;min-height:56px}}
+@media (orientation:landscape) and (max-height:499px){.sctg-game-screen>.sctg-rotate-note{display:grid;place-items:center}.sctg-game-screen>.sctg-question,.sctg-game-screen>.sctg-arena,.sctg-game-screen>.sctg-actions{display:none}}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}}

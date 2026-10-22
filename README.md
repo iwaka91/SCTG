@@ -10,11 +10,12 @@ SCTG adalah standar pembuatan **Perjalanan Belajar** digital berbasis Pembelajar
 | Berkas | Keterangan |
 |---|---|
 | [`SCTG_V4.4.md`](SCTG_V4.4.md) | Dokumen standar resmi, satu-satunya sumber kebenaran untuk membangun course |
+| [`skill/sctg/`](skill/sctg/) | Skill SCTG: `SKILL.md` (baca dulu) dan `references/` (salinan per bagian dari V4.4, tanpa perubahan kalimat) |
 | `README.md` | Panduan singkat ini |
 
 ## Cara pakai
 
-1. Unggah atau tempel `SCTG_V4.4.md` di awal setiap sesi pembangunan course baru.
+1. **Pakai skill lebih dulu:** muat `skill/sctg/SKILL.md`, lalu baca hanya berkas di `skill/sctg/references/` yang sesuai pekerjaan. **`SCTG_V4.4.md` utuh dibaca hanya bila diminta, atau saat dibutuhkan:** membangun course penuh dari nol, atau ada pasal yang bertentangan atau meragukan. Bila skill dan dokumen utuh berbeda, dokumen utuh yang berlaku.
 2. Sebutkan kode course, series, TP, perangkat sasaran, dan durasi.
 3. AI pembangun menjalankan Uji Kelayakan TP dan menawarkan pilihan pedagogis lebih dulu.
 4. **Aturan Emas:** kode baru ditulis hanya setelah ada perintah eksplisit, misalnya "Gas kode", "Bangun Kode", atau "Update Kode".
